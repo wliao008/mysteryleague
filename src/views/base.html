@@ -1,0 +1,23 @@
+<html>
+<head>
+  <title>{% block title %}Mystery League{% endblock %}</title>
+</head>
+<body>
+  <div id="header">
+  mystery league
+  </div>
+  <div id="rightbar">
+    {% block left %}{% endblock%}
+  </div>
+  <div id="rightbar">
+    {% block rightbar %}{% endblock%}
+  </div>
+  <div id="content">
+    {% block content %}{% endblock%}
+  </div>
+  <div id="footer">
+    <hr size="1">
+    {% block footer %}(c) mystery league{% endblock%}
+  </div>
+</body>
+</html>
