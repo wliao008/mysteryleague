@@ -2,6 +2,6 @@
 {% block content %}
 Hello {{name}}<br>
 {% for article in articles%}
-{{ article.title }}/{{ article.author }}<br>
+<a href='/detail/{{ article.key }}'>{{ article.title }}/{{ article.author }}</a><br>
 {% endfor %}
 {% endblock %}
