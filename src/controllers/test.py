@@ -1,12 +1,21 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+import src.models.model
 
 class Test(webapp.RequestHandler):
+
   def get(self):
+    create()
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.out.write('Test')
+    self.response.out.write('Created')
+
 
 app = webapp.WSGIApplication([('/test/*', Test)], debug=True)
+
+def create():
+  article = src.models.model.Article(title="Test title", author="wliao")
+  article.put()    
 
 def main():
   run_wsgi_app(app)

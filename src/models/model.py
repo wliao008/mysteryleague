@@ -5,4 +5,4 @@ class Item(polymodel.PolyModel):
   title = db.StringProperty(required=True)
 
 class Article(Item):
-  Author = db.StringProperty()
+  author = db.StringProperty()

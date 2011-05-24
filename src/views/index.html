@@ -1,4 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-Hello {{name}}
+Hello {{name}}<br>
+{% for article in articles%}
+{{ article.title }}/{{ article.author }}<br>
+{% endfor %}
 {% endblock %}
