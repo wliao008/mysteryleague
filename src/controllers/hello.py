@@ -3,14 +3,14 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
-import src.models.model
+import models.model
 
 VIEWS_PATH = '../views/'
 
 class MainPage(webapp.RequestHandler):
   def get(self):
     path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
-    articles = src.models.model.Article.all()
+    articles = models.model.Article.all()
     model = {'name': 'man', 'path': path, 'articles': articles, }
     self.response.out.write(template.render(path, model))
 
