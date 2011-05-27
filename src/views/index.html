@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-Hello {{name}}<br>
 {% for article in articles%}
 <a href='/detail/{{ article.key }}'>{{ article.title }}/{{ article.author }}</a><br>
-{{ article.summary }}
+{{ article.createDate }}<br>
+{{ article.summary }}<br><br>
 {% endfor %}
 {% endblock %}

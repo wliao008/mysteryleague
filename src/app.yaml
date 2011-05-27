@@ -18,8 +18,11 @@ handlers:
 - url: /test/*
   script: controllers/test.py
 
+- url: /testuser/*
+  script: controllers/test.py
+
 - url: /.*
-  script: controllers/hello.py
+  script: controllers/homepage.py
 
 builtins:
 - datastore_admin: on

@@ -2,19 +2,13 @@
 <?eclipse-pydev version="1.0"?>
 
 <pydev_project>
-<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">python</pydev_property>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.6</pydev_property>
-<pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
-<key>GOOGLE_APP_ENGINE</key>
-<value>/home/wliao/Downloads/google_appengine</value>
-</pydev_variables_property>
+
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/mysteryleague/src</path>
 </pydev_pathproperty>
 <pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
-<path>${GOOGLE_APP_ENGINE}</path>
-<path>${GOOGLE_APP_ENGINE}/lib/django</path>
-<path>${GOOGLE_APP_ENGINE}/lib/webob</path>
-<path>${GOOGLE_APP_ENGINE}/lib/yaml/lib</path>
+<path>/home/wliao/Programming/GoogleAppEngineSDK</path>
 </pydev_pathproperty>
 </pydev_project>
