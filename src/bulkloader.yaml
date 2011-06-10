@@ -21,21 +21,19 @@ python_preamble:
 - import: google.appengine.ext.db
 - import: google.appengine.api.datastore
 - import: google.appengine.api.users
+- import: bulk_helper
 
 transformers:
 
 - kind: Item
-  connector: # TODO: Choose a connector here: csv, simplexml, etc...
+  connector: csv 
   connector_options:
-    # TODO: Add connector options here--these are specific to each connector.
+      encoding: utf-8
+      skip_import_header_row: true
   property_map:
     - property: __key__
       external_name: key
       export_transform: transform.key_id_or_name_as_string
-
-    - property: __scatter__
-      external_name: __scatter__
-      # Type: ShortBlob Stats: 3 properties of this type in this kind.
 
     - property: author
       external_name: author
@@ -43,6 +41,8 @@ transformers:
 
     - property: class
       external_name: class
+      export_transform: bulk_helper.list_to_json(str)
+      import_transform: bulk_helper.comma_str_to_list(str)
       # Type: String Stats: 202 properties of this type in this kind.
 
     - property: content

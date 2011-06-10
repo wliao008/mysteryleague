@@ -1,0 +1,10 @@
+bulk-downloading data from appengine:
+appcfg.py download_data --application=s~tuiliclub --url=http://tuiliclub.appspot.com/remote_api --filename=data.dat
+
+
+creating a bulkloader.yaml:
+appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://tuiliclub.appspot.com/remote_api --application=s~tuiliclub
+
+
+bulkloading data into local server:
+appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/article_b.csv --kind=Item --url=http://localhost:8080/remote_api .
