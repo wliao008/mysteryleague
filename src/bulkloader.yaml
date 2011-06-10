@@ -53,8 +53,8 @@ transformers:
     - property: createDate
       external_name: createDate
       # Type: Date/Time Stats: 100 properties of this type in this kind.
-      import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
-      export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S')
 
     - property: summary
       external_name: summary
