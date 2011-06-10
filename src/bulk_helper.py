@@ -129,7 +129,7 @@ def comma_str_to_list(transformer):
     def comma_str_to_list_lambda(value):
 	output = []
 	for i in value.split(','):
-	    output.append(tranformer(i.strip().capitalize()))
+	    output.append(transformer(i.strip().capitalize()))
     	return output
     return comma_str_to_list_lambda
 
