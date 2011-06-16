@@ -46,8 +46,8 @@ transformers:
 
     - property: created_date
       external_name: created_date
-      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S')
-      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S')
+      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S.%f')
+      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S.%f')
 
 - kind: Item
   connector: csv 
