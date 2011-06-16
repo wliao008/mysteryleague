@@ -11,7 +11,7 @@ class MainPage(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
         articles = models.model.Article.all()
-        articles.order("-createDate")
+        articles.order("-created_date")
         model = {'name': 'man', 'path': path, 'articles': articles.fetch(5), }
         self.response.out.write(template.render(path, model))
 

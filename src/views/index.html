@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 {% for article in articles%}
-<a href='/detail/{{ article.key }}'>{{ article.title }}/{{ article.original_author }}</a><br>
-{{ article.createDate }}<br>
+<a href='/detail/{{ article.key }}'>{{ article.title }}/{{ article.user.nickname }}</a><br>
+{{ article.created_date }}<br>
 {{ article.summary }}<br><br>
 {% endfor %}
 {% endblock %}

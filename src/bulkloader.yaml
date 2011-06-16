@@ -25,6 +25,30 @@ python_preamble:
 
 transformers:
 
+- kind: User
+  connector: csv 
+  connector_options:
+      encoding: utf-8
+      skip_import_header_row: true
+  property_map:
+    - property: __key__
+      external_name: key
+      import_template: "%(nickname)s"
+
+    - property: email
+      external_name: email
+
+    - property: nickname
+      external_name: nickname
+
+    - property: gravatar_icon_url
+      external_name: gravatar_icon_url
+
+    - property: created_date
+      external_name: created_date
+      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S')
+
 - kind: Item
   connector: csv 
   connector_options:
@@ -55,8 +79,8 @@ transformers:
       # Type: Text Stats: 101 properties of this type in this kind.
       import_transform: db.Text
       
-    - property: createDate
-      external_name: createDate
+    - property: created_date
+      external_name: created_date
       # Type: Date/Time Stats: 100 properties of this type in this kind.
       import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S')
       export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S')
@@ -87,3 +111,4 @@ transformers:
             
     - property: user
       external_name: user
+      import_transform: transform.create_foreign_key('User')

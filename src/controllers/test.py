@@ -5,7 +5,7 @@ import models.model
 
 class Test(webapp.RequestHandler):
     def get(self):
-        create(100)
+        create()
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.out.write('Test')
         self.response.out.write('<p>Created')
@@ -21,16 +21,16 @@ class TestUser(webapp.RequestHandler):
 
 app = webapp.WSGIApplication([('/test/*', Test), ('/testuser/*', TestUser)], debug=True)
 
-def create(count):
-    for i in range(0,count,1):
-        title = "Test title " + str(i)
-        author = "wliao"
-        summary = "this is a test " + str(i)
-        content = "this is the content of the article"
-        article = models.model.Article(title=title, author=author,
-                               summary=summary, content=content)
+def create():
+    title = "Test title"
+    author = "wliao"
+    summary = "this is a test"
+    content = "this is the content of the article"
+    usr = models.model.User(email="wliao008@gmail.com",nickname="wliao")
+    usr.put()
+    article = models.model.Article(item_type=1,title=title, original_author=author,summary=summary, content_html=content, user=usr)
 
-        article.put()    
+    article.put()    
 
 def main():
     run_wsgi_app(app)

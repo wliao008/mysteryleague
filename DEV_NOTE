@@ -6,5 +6,12 @@ creating a bulkloader.yaml:
 appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://tuiliclub.appspot.com/remote_api --application=s~tuiliclub
 
 
-bulkloading data into local server:
-appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/article_b.csv --kind=Item --url=http://localhost:8080/remote_api .
+to bulkload article data into local server:
+appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/article.csv --kind=Item --url=http://localhost:8080/remote_api .
+
+
+to bulkload user data into local server:
+appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/user.csv --kind=User --url=http://localhost:8080/remote_api .
+
+
+to bulkload data to appengine server, simply substitute the url with the server url.
