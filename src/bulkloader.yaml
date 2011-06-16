@@ -82,8 +82,8 @@ transformers:
     - property: created_date
       external_name: created_date
       # Type: Date/Time Stats: 100 properties of this type in this kind.
-      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S')
-      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S')
+      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S.%f')
+      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S.%f')
 
     - property: summary
       external_name: summary
@@ -99,15 +99,19 @@ transformers:
 
     - property: hits
       external_name: hits
+      import_transform: int
 
     - property: is_reviewable
       external_name: is_reviewable
+      import_transform: bool
             
     - property: is_ratable
       external_name: is_ratable
+      import_transform: bool
 
-    - property: rating
-      external_name: rating
+    #- property: rating
+    #  external_name: rating
+    #  import_transform: int
             
     - property: user
       external_name: user

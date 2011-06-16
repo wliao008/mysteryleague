@@ -12,7 +12,7 @@ class MainPage(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
         articles = models.model.Article.all()
         articles.order("-created_date")
-        model = {'name': 'man', 'path': path, 'articles': articles.fetch(5), }
+        model = {'name': 'man', 'path': path, 'articles': articles.fetch(50), }
         self.response.out.write(template.render(path, model))
 
 class ArticleDetail(webapp.RequestHandler):

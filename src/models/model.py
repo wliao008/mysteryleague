@@ -15,8 +15,8 @@ class Item(polymodel.PolyModel):
     content_wmd = db.TextProperty()
     created_date = db.DateTimeProperty(auto_now_add=True)
     hits = db.IntegerProperty(default=0)
-    is_reviewable = db.BooleanProperty()
-    is_ratable = db.BooleanProperty()
+    is_reviewable = db.BooleanProperty(default=True)
+    is_ratable = db.BooleanProperty(default=True)
     rating = db.RatingProperty()
     user = db.ReferenceProperty(User)
 
