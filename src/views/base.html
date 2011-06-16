@@ -1,12 +1,14 @@
 <html>
 <head>
   <title>{% block title %}Mystery League{% endblock %}</title>
+  <link href="/static/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <div id="header">
-  mystery league
+  <a href="/">mystery league</a>
+  <hr size="1"/>
   </div>
-  <div id="rightbar">
+  <div id="leftbar">
     {% block left %}{% endblock%}
   </div>
   <div id="rightbar">

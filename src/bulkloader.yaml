@@ -35,8 +35,8 @@ transformers:
       external_name: key
       export_transform: transform.key_id_or_name_as_string
 
-    - property: author
-      external_name: author
+    - property: original_author
+      external_name: original_author
       # Type: String Stats: 101 properties of this type in this kind.
 
     - property: class
@@ -45,11 +45,16 @@ transformers:
       import_transform: bulk_helper.comma_str_to_list(str)
       # Type: String Stats: 202 properties of this type in this kind.
 
-    - property: content
-      external_name: content
+    - property: content_html
+      external_name: content_html
       # Type: Text Stats: 101 properties of this type in this kind.
       import_transform: db.Text
 
+    - property: content_wmd
+      external_name: content_wmd
+      # Type: Text Stats: 101 properties of this type in this kind.
+      import_transform: db.Text
+      
     - property: createDate
       external_name: createDate
       # Type: Date/Time Stats: 100 properties of this type in this kind.
@@ -64,3 +69,21 @@ transformers:
       external_name: title
       # Type: String Stats: 101 properties of this type in this kind.
 
+    - property: item_type
+      external_name: item_type
+      import_transform: int
+
+    - property: hits
+      external_name: hits
+
+    - property: is_reviewable
+      external_name: is_reviewable
+            
+    - property: is_ratable
+      external_name: is_ratable
+
+    - property: rating
+      external_name: rating
+            
+    - property: user
+      external_name: user
