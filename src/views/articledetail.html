@@ -1,5 +1,12 @@
 {% extends "base.html" %}
+{% block left %}
+<span align="right">
+<img src="{{ article.user.gravatar_icon_url }}?s=32"><br>
+{{ article.user.nickname }}<br>
+{{ article.created_date|date:"m/d/Y" }}
+</span>
+{% endblock %}
 {% block content %}
-<b>{{ article.title }}</b><br>
+<p><b>{{ article.title }}</b></p>
 {{ article.content_html }}
 {% endblock %}

@@ -54,6 +54,8 @@ transformers:
   connector_options:
       encoding: utf-8
       skip_import_header_row: true
+      import_options:
+          delimiter: "|"
   property_map:
     - property: __key__
       external_name: key
