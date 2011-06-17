@@ -8,6 +8,15 @@ handlers:
   script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
   login: admin
 
+- url: /
+  script: controllers/homepage.py
+
+- url: /page(\d+)
+  script: controllers/homepage.py
+
+- url: /(detail)/(\w+)
+  script: controllers/homepage.py  
+
 - url: /favicon.ico
   static_files: images/favicon.ico
   upload: images/favicon.ico
@@ -27,9 +36,9 @@ handlers:
 
 - url: /testuser/*
   script: controllers/test.py
-
+  
 - url: /.*
-  script: controllers/homepage.py
+  script: notfound.py  
 
 builtins:
 - datastore_admin: on

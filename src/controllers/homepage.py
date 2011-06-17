@@ -1,18 +1,23 @@
-import os
-from google.appengine.ext import db
-from google.appengine.ext import webapp
+from google.appengine.ext import db, webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 import models.model
+import os
 
 VIEWS_PATH = '../views/'
+PAGE_SIZE = 50
 
 class MainPage(webapp.RequestHandler):
-    def get(self):
+    def get(self, pagenum=None):
+        if pagenum == None:
+            pagenum = 0
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
         articles = models.model.Article.all()
         articles.order("-created_date")
-        model = {'name': 'man', 'path': path, 'articles': articles.fetch(50), }
+        offset = PAGE_SIZE * int(pagenum)
+        model = {'name': 'man', 'path': path, 'articles': articles.fetch(PAGE_SIZE, offset), }
+        count = articles.count()
+        self.response.out.write(count)
         self.response.out.write(template.render(path, model))
 
 class ArticleDetail(webapp.RequestHandler):
@@ -23,7 +28,7 @@ class ArticleDetail(webapp.RequestHandler):
         self.response.out.write(template.render(path, model))
 
 
-application = webapp.WSGIApplication([('/', MainPage), (r'/(detail)/(\w+)', ArticleDetail)], debug=True)
+application = webapp.WSGIApplication([('/', MainPage), ('/page(\d+)', MainPage), (r'/(detail)/(\w+)', ArticleDetail)], debug=True)
 
 def main():
     run_wsgi_app(application)
