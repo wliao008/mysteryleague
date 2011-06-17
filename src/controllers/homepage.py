@@ -15,9 +15,8 @@ class MainPage(webapp.RequestHandler):
         articles = models.model.Article.all()
         articles.order("-created_date")
         offset = PAGE_SIZE * int(pagenum)
-        model = {'name': 'man', 'path': path, 'articles': articles.fetch(PAGE_SIZE, offset), }
         count = articles.count()
-        self.response.out.write(count)
+        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'articles': articles.fetch(PAGE_SIZE, offset), }
         self.response.out.write(template.render(path, model))
 
 class ArticleDetail(webapp.RequestHandler):

@@ -11,7 +11,7 @@ appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/articles.
 
 
 to bulkload user data into local server:
-appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/users.csv --kind=User --url=http://localhost:8080/remote_api .
+appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/users.csv --batch_size=50 --log_file=/dev/null --kind=User --url=http://localhost:8080/remote_api .
 
 
 to bulkload data to appengine server, simply substitute the url with the server url.

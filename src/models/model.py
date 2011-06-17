@@ -1,6 +1,9 @@
 from google.appengine.ext import db
 from google.appengine.ext.db import polymodel
 
+class Status(db.Model):
+    status_name = db.StringProperty(required=True)
+
 class User(db.Model):
     email = db.StringProperty()
     nickname = db.StringProperty()
@@ -18,7 +21,9 @@ class Item(polymodel.PolyModel):
     is_reviewable = db.BooleanProperty(default=True)
     is_ratable = db.BooleanProperty(default=True)
     rating = db.RatingProperty()
+    icon_url = db.StringProperty()
     user = db.ReferenceProperty(User)
+    status = db.ReferenceProperty(Status)
 
 class Article(Item):
     original_author = db.StringProperty()

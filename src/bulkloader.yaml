@@ -25,6 +25,19 @@ python_preamble:
 
 transformers:
 
+- kind: Status
+  connector: csv 
+  connector_options:
+      encoding: utf-8
+      skip_import_header_row: true
+  property_map:
+    - property: __key__
+      external_name: key
+      import_template: "%(status_name)s"
+
+    - property: status_name
+      external_name: status_name
+
 - kind: User
   connector: csv 
   connector_options:
@@ -118,3 +131,10 @@ transformers:
     - property: user
       external_name: user
       import_transform: transform.create_foreign_key('User')
+            
+    - property: status
+      external_name: status
+      import_transform: transform.create_foreign_key('Status')
+      
+    - property: icon_url
+      external_name: icon_url
