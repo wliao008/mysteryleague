@@ -1,4 +1,4 @@
-from google.appengine.ext import webapp
+from google.appengine.ext import db, webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import users
 import models.model
@@ -18,8 +18,23 @@ class TestUser(webapp.RequestHandler):
             self.response.out.write('test user: ' + user.nickname())
         else:
             self.redirect(users.create_login_url(self.request.uri))
+            
+class TestReview(webapp.RequestHandler):
+    def get(self):
+        article = db.get('agl0dWlsaWNsdWJyCwsSBEl0ZW0YkQMM')
+        user = db.get('agl0dWlsaWNsdWJyEAsSBFVzZXIiBuS5kOmYsww')
+        for i in range(4):
+            review1 = models.model.Review()
+            review1.subject="review " + str(i)
+            review1.content_html="this is a review " + str(i)
+            review1.item = article
+            review1.user = user
+            review1.put();
+        
+        self.response.out.write('review created')
+        
 
-app = webapp.WSGIApplication([('/test/*', Test), ('/testuser/*', TestUser)], debug=True)
+app = webapp.WSGIApplication([('/test/*', Test), ('/testuser/*', TestUser), ('/testreview/*', TestReview)], debug=True)
 
 def create():
     title = "Test title"

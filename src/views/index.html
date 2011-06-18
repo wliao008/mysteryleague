@@ -2,7 +2,7 @@
 {% block content %}
 {% for article in articles %}
 <a href='/detail/{{ article.key }}'>{{ article.title }}</a><br>
-{{ article.user.nickname }} {{ article.created_date|date:"m/d/Y" }}<br>
+{{ article.user.nickname }} {{ article.created_date|date:"m/d/Y" }}, {{ article.hits }}<br>
 {{ article.summary }}<br><br>
 {% endfor %}
 {% endblock %}

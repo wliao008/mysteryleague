@@ -27,3 +27,15 @@ class Item(polymodel.PolyModel):
 
 class Article(Item):
     original_author = db.StringProperty()
+
+class Review(db.Model):
+    item = db.ReferenceProperty(Item, collection_name='reviews')
+    subject = db.StringProperty()
+    content_html = db.TextProperty()
+    content_wmd = db.TextProperty()
+    ip_address = db.StringProperty()
+    created_date = db.DateTimeProperty(auto_now_add=True)
+    user = db.ReferenceProperty(User)
+    rating = db.RatingProperty()
+    up_vote = db.IntegerProperty(default=0)
+    down_vote = db.IntegerProperty(default=0)

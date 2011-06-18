@@ -19,15 +19,7 @@ class MainPage(webapp.RequestHandler):
         model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'articles': articles.fetch(PAGE_SIZE, offset), }
         self.response.out.write(template.render(path, model))
 
-class ArticleDetail(webapp.RequestHandler):
-    def get(self, cat, key):
-        path = os.path.join(os.path.dirname(VIEWS_PATH), 'articledetail.html')
-        article = db.get(key)
-        model = {'cat': cat, 'article': article}
-        self.response.out.write(template.render(path, model))
-
-
-application = webapp.WSGIApplication([('/', MainPage), ('/page(\d+)', MainPage), (r'/(detail)/(\w+)', ArticleDetail)], debug=True)
+application = webapp.WSGIApplication([('/', MainPage), ('/page(\d+)', MainPage)], debug=True)
 
 def main():
     run_wsgi_app(application)

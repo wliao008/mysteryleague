@@ -15,7 +15,7 @@ handlers:
   script: controllers/homepage.py
 
 - url: /(detail)/(\w+)
-  script: controllers/homepage.py  
+  script: controllers/article.py  
 
 - url: /favicon.ico
   static_files: images/favicon.ico
@@ -35,6 +35,9 @@ handlers:
   script: controllers/test.py
 
 - url: /testuser/*
+  script: controllers/test.py
+
+- url: /testreview/*
   script: controllers/test.py
   
 - url: /.*

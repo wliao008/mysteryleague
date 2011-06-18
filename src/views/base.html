@@ -8,18 +8,20 @@
   <a href="/">mystery league</a>
   <hr size="1"/>
   </div>
-  <div id="leftbar">
-    {% block left %}{% endblock%}
-  </div>
-  <div id="rightbar">
-    {% block rightbar %}{% endblock%}
-  </div>
-  <div id="content">
-    {% block content %}{% endblock%}
+  <div id="main">
+	  <div id="leftbar">
+	    {% block left %}{% endblock%}
+	  </div>
+	  <div id="rightbar">
+	    {% block right %}{% endblock%}
+	  </div>
+	  <div id="content">
+	    {% block content %}{% endblock%}
+	  </div>
   </div>
   <div id="footer">
-    <hr size="1">
-    {% block footer %}(c) mystery league{% endblock%}
+	<hr size="1">
+	{% block footer %}(c) mystery league{% endblock%}
   </div>
 </body>
 </html>
