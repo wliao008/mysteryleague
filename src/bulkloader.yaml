@@ -73,7 +73,7 @@ transformers:
     - property: __key__
       external_name: key
       export_transform: transform.key_id_or_name_as_string
-      #import_template: "%(title)s"
+      import_template: "%(item_id)s"
 
     - property: original_author
       external_name: original_author
