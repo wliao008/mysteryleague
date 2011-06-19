@@ -6,23 +6,17 @@ creating a bulkloader.yaml:
 appcfg.py create_bulkloader_config --filename=bulkloader.yaml --url=http://tuiliclub.appspot.com/remote_api --application=s~tuiliclub
 
 
-to bulkload article data into local server:
-appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/articles.csv --batch_size=50 --log_file=/dev/null --kind=Item --url=http://localhost:8080/remote_api .
-
-
-to bulkload user data into local server:
-appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/users.csv --batch_size=50 --log_file=/dev/null --kind=User --url=http://localhost:8080/remote_api .
-
-
-to bulkload data to appengine server, simply substitute the url with the server url.
-
-
-To bulkload csv data, run the following commands, note the following url are specific to 
-the local server, if bulkloading to the appengine server, need to change the urls that points
-to that server. When loading to appengine server, the batch size should be set to 10 to
-prevent timeout.
+To bulkload csv data to local server, run the following commands:
 
 appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/articles.csv --batch_size=10 --log_file=/dev/null --kind=Item --url=http://localhost:8080/remote_api .
 appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/users.csv --batch_size=50 --log_file=/dev/null --kind=User --url=http://localhost:8080/remote_api .
 appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/status.csv --batch_size=50 --log_file=/dev/null --kind=Status --url=http://localhost:8080/remote_api .
 appcfg.py upload_data --config_file=bulkloader.yaml --filename=../data/reviews.csv --batch_size=50 --log_file=/dev/null --kind=Review --url=http://localhost:8080/remote_api .
+
+To bulkload csv data to the appengine server, run the following commands, note that
+"--application=s~tuiliclub" needs to be specified since high repcliation datastore is used.
+
+appcfg.py upload_data --application=s~tuiliclub --config_file=bulkloader.yaml --filename=../data/articles.csv --batch_size=10 --log_file=/dev/null --kind=Item --url=http://tuiliclub.appspot.com/remote_api .
+appcfg.py upload_data --application=s~tuiliclub --config_file=bulkloader.yaml --filename=../data/users.csv --batch_size=10 --log_file=/dev/null --kind=User --url=http://tuiliclub.appspot.com/remote_api .
+appcfg.py upload_data --application=s~tuiliclub --config_file=bulkloader.yaml --filename=../data/status.csv --batch_size=10 --log_file=/dev/null --kind=Status --url=http://tuiliclub.appspot.com/remote_api .
+appcfg.py upload_data --application=s~tuiliclub --config_file=bulkloader.yaml --filename=../data/reviews.csv --batch_size=10 --log_file=/dev/null --kind=Review --url=http://tuiliclub.appspot.com/remote_api .

@@ -11,6 +11,9 @@ hits: {{ article.hits }}
 <p><b>{{ article.title }}</b></p>
 {{ article.content_html }}
 {% ifequal 0 article.reviews.count %}
+<br><br>
+<hr>
+facebook, twitter
 <hr>
 <i>be the first one to review!</i>
 {% endifequal %}
@@ -24,6 +27,7 @@ hits: {{ article.hits }}
 	</tr>
 {% endfor %}
 </table>
+<br><br>
 
 {% endblock %}
 {% block right %}
