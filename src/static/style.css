@@ -15,6 +15,11 @@ hr
     border-top-color: #C0C0C0;
 }
 
+table{
+    font-size: 10pt;
+    font-family: Verdana, Helvetica, Sans-Serif;
+}
+
 div#main
 {
     width: 1000px;

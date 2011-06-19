@@ -10,15 +10,21 @@ hits: {{ article.hits }}
 {% block content %}
 <p><b>{{ article.title }}</b></p>
 {{ article.content_html }}
-<hr>
 {% ifequal 0 article.reviews.count %}
+<hr>
 <i>be the first one to review!</i>
 {% endifequal %}
 
+<table width="100%">
 {% for review in article.reviews %}
-{{ review.user.nickname }} - {{ review.subject }} ({{ review.created_date }}) - {{ review.content_html }}<br><br>
+	<tr><td colspan="2"><hr></tr>
+	<tr>
+		<td width="40" valign="top"><img src="{{ article.user.gravatar_icon_url }}?s=32"><br>{{ review.user.nickname }}</td>
+		<td valign="top">{{ review.created_date|date:"m/d/Y" }}<br>{{ review.content_html }}</td>
+	</tr>
 {% endfor %}
+</table>
+
 {% endblock %}
 {% block right %}
-right bar
 {% endblock %}
