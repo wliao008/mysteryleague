@@ -13,7 +13,6 @@ hits: {{ article.hits }}
 <br><br>
 <hr>
 hook to facebook, twitter
-<hr>
 
 <table width="100%" cellpadding="0" cellspacing="0">
 {% for review in article.reviews %}
@@ -25,10 +24,16 @@ hook to facebook, twitter
 {% endfor %}
 	<tr><td colspan="2"><hr></td></tr>
 {% if user %}
+	<form action="/item/addreview" method="post">
 	<tr>
 		<td width="40" valign="top">{{ user.nickname }} </td>
-		<td><textarea rows="3" style="width:100%"></textarea><br>{{ login_url }}</td>
+		<td>
+			<input type="hidden" id="key" name="key" value="{{ article.key }}" />
+			<textarea name="content" rows="3" style="width:100%"></textarea>
+		    <br>{{ login_url }}</td>
 	</tr>
+	<tr><td></td><td><input type="submit" value="go"/></td></tr>
+	</form>
 {% else %}
 	<tr><td colspan="2">{{ login_msg }}</td></tr>
 {% endif %}

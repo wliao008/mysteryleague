@@ -3,6 +3,8 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import users
 import os
+import cgi
+import models.model
 
 VIEWS_PATH = '../views/'
 
@@ -21,8 +23,19 @@ class ArticleDetail(webapp.RequestHandler):
         model = {'cat': cat, 'article': article, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
         self.response.out.write(template.render(path, model))
 
+    def post(self):
+	key = self.request.get('key')
+	article = db.get(key)
+        user = users.get_current_user()
+	review = models.model.Review()
+	review.content_html = cgi.escape(self.request.get('content'))
+	review.item = article
+	review.put()
+	self.redirect("/detail/" + key)
 
-application = webapp.WSGIApplication([(r'/(detail)/(\w+)', ArticleDetail)], debug=True)
+application = webapp.WSGIApplication(
+				[(r'/(detail)/(\w+)', ArticleDetail),
+				(r'/item/addreview', ArticleDetail)], debug=True)
 
 def main():
     run_wsgi_app(application)

@@ -17,6 +17,9 @@ handlers:
 - url: /(detail)/(\w+)
   script: controllers/article.py  
 
+- url: /item/addreview
+  script: controllers/article.py
+
 - url: /favicon.ico
   static_files: images/favicon.ico
   upload: images/favicon.ico
