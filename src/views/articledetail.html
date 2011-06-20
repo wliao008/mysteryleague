@@ -15,7 +15,6 @@ hits: {{ article.hits }}
 <hr>
 facebook, twitter
 <hr>
-<i>be the first one to review!</i>
 {% endifequal %}
 
 <table width="100%">
@@ -26,6 +25,11 @@ facebook, twitter
 		<td valign="top">{{ review.created_date|date:"m/d/Y" }}<br>{{ review.content_html }}</td>
 	</tr>
 {% endfor %}
+	<tr><td colspan="2"><hr></td></tr>
+	<tr>
+		<td width="40" valign="top">Me</td>
+		<td><textarea rows="3" style="width:100%"></textarea><br>{{ login_url }}</td>
+	</tr>
 </table>
 <br><br>
 
