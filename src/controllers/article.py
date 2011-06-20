@@ -14,9 +14,11 @@ class ArticleDetail(webapp.RequestHandler):
         article.put()
         user = users.get_current_user();
         login_url = ""
+	login_msg = ""
         if not user:
             login_url = users.create_login_url(self.request.uri)
-        model = {'cat': cat, 'article': article, 'user': user, 'login_url': login_url}
+	    login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
+        model = {'cat': cat, 'article': article, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
         self.response.out.write(template.render(path, model))
 
 
