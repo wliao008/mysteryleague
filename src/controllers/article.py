@@ -25,9 +25,10 @@ class ArticleDetail(webapp.RequestHandler):
         self.response.out.write(template.render(path, model))
 
     def post(self):
+	#TODO: shouldn't retrieve the whole article object just to reference it,
+	#there should be a better way, research on how the foreign key work in appengine
         key = self.request.get('key')
         article = db.get(key)
-        'user = users.get_current_user()'
         review = models.model.Review()
         review.content_html = cgi.escape(self.request.get('content'))
         review.item = article
