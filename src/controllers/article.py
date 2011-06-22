@@ -14,24 +14,25 @@ class ArticleDetail(webapp.RequestHandler):
         article = db.get(key)
         article.hits += 1
         article.put()
-        user = users.get_current_user();
+        user = users.get_current_user()
         login_url = ""
-	login_msg = ""
+        login_msg = ""
         if not user:
             login_url = users.create_login_url(self.request.uri)
-	    login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
+            login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
+
         model = {'cat': cat, 'article': article, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
         self.response.out.write(template.render(path, model))
 
     def post(self):
-	key = self.request.get('key')
-	article = db.get(key)
-        user = users.get_current_user()
-	review = models.model.Review()
-	review.content_html = cgi.escape(self.request.get('content'))
-	review.item = article
-	review.put()
-	self.redirect("/detail/" + key)
+        key = self.request.get('key')
+        article = db.get(key)
+        'user = users.get_current_user()'
+        review = models.model.Review()
+        review.content_html = cgi.escape(self.request.get('content'))
+        review.item = article
+        review.put()
+        self.redirect("/detail/" + key)
 
 application = webapp.WSGIApplication(
 				[(r'/(detail)/(\w+)', ArticleDetail),

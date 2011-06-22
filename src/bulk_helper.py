@@ -22,11 +22,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import os
-import sys
-
-from google.appengine.api import datastore, datastore_types
-from google.appengine.ext import db
+from google.appengine.api import datastore
 import base64
 from django.utils import simplejson
 
@@ -127,10 +123,10 @@ def json_to_list(transformer):
   
 def comma_str_to_list(transformer):
     def comma_str_to_list_lambda(value):
-	output = []
-	for i in value.split(','):
-	    output.append(transformer(i.strip().capitalize()))
-    	return output
+            output = []
+            for i in value.split(','):
+                output.append(transformer(i.strip().capitalize()))
+            return output
     return comma_str_to_list_lambda
 
 def class_to_tuple(value):
