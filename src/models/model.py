@@ -10,6 +10,12 @@ class User(db.Model):
     gravatar_icon_url = db.LinkProperty()
     created_date = db.DateTimeProperty(auto_now_add=True) 
 
+class OpenID(db.Model):
+    claimed_identifier = db.StringProperty()
+    friendly_identifier = db.StringProperty()
+    login_count = db.IntegerProperty(default=0)
+    created_date = db.DateTimeProperty(auto_now_add=True)
+
 class Item(polymodel.PolyModel):
     title = db.StringProperty(required=True)
     item_type = db.IntegerProperty(required=True)

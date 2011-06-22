@@ -1,4 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-user setting
+<table width="100%" border="1">
+	<tr>
+		<td width="150" valign="top">nickname: {{ user.nickname }}<br>
+			email: {{ user.email }}<br>
+			user_id: {{ user.user_id }}<br>
+			federated_provider: {{ user.federated_provider }}
+		</td>
+		<td valign="top">federated_identity: {{ user.federated_identity }}
+		</td>
+	</tr>
+</table>
 {% endblock %}
