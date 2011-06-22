@@ -2,10 +2,11 @@
 <head>
   <title>{% block title %}Mystery League{% endblock %}</title>
   <link href="/static/style.css" rel="stylesheet" type="text/css" />
+  {% block head_scripts %}{% endblock%}
 </head>
 <body>
   <div id="header">
-  <a href="/">mystery league</a>
+  <a href="/">mystery league</a> | <a href="/login">login</a> | <a href="/logout">logout</a>
   <hr size="1"/>
   </div>
   <div id="main">
@@ -25,5 +26,7 @@
 	(c) mystery league, 2003-2011
 	{% endblock%}
   </div>
+  {% block footer_scripts %}
+  {% endblock %}
 </body>
 </html>

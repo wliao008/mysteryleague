@@ -3,48 +3,27 @@ version: 1
 runtime: python
 api_version: 1
 
+builtins:
+- datastore_admin: on
+
 handlers:
+#for uploading and download data
 - url: /remote_api
   script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
   login: admin
 
-- url: /
-  script: controllers/homepage.py
-
-- url: /page(\d+)
-  script: controllers/homepage.py
-
-- url: /(detail)/(\w+)
-  script: controllers/article.py  
-
-- url: /item/addreview
-  script: controllers/article.py
-
+- url: /_ah/login_required
+  script: app.py
+  
 - url: /favicon.ico
   static_files: images/favicon.ico
   upload: images/favicon.ico
 
-- url: /robots.txt
-  static_files: static/robots.txt
-  upload: static/robots.txt
+- url: /static
+  static_dir: static
 
 - url: /images
   static_dir: images
-  
-- url: /static
-  static_dir: static  
 
-- url: /test/*
-  script: controllers/test.py
-
-- url: /testuser/*
-  script: controllers/test.py
-
-- url: /testreview/*
-  script: controllers/test.py
-  
 - url: /.*
-  script: notfound.py  
-
-builtins:
-- datastore_admin: on
+  script: app.py 
