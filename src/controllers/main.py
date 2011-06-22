@@ -31,3 +31,8 @@ class Login(webapp.RequestHandler):
         else:
             self.response.out.write(template.render(VIEWS_PATH + "login.html", \
                 {"continue_to": target_url}))
+
+class Logout(webapp.RequestHandler):
+    def get(self):
+	url = users.create_logout_url("/")
+	self.redirect(url)

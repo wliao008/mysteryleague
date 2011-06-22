@@ -7,6 +7,7 @@ urls = [
 	(r'/page(\d+)', MainPage),
 	(r'/login', Login),
 	(r'/_ah/login_required', Login),
+	(r'/logout', Logout),
 	(r'/(detail)/(\w+)', ArticleDetail),
 	(r'/item/addreview', ArticleDetail),
 	(r'/testuser', TestUser),
