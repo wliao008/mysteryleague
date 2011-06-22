@@ -11,6 +11,7 @@ urls = [
 	(r'/(detail)/(\w+)', ArticleDetail),
 	(r'/item/addreview', ArticleDetail),
 	(r'/testuser', TestUser),
+	(r'/setting', Setting),
 	# more url patterns
 ]
 
