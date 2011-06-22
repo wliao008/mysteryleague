@@ -3,6 +3,15 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import users
 import models.model
 
+openIdProviders = (
+    'Google.com/accounts/o8/id', # shorter alternative: "Gmail.com"
+    'Yahoo.com',
+    'MySpace.com',
+    'AOL.com',
+    'MyOpenID.com',
+    # add more here
+)
+
 class Test(webapp.RequestHandler):
     def get(self):
         create()
@@ -15,9 +24,15 @@ class TestUser(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            self.response.out.write('test user: ' + user.nickname())
+            self.response.out.write('Hello <em>%s</em>! [<a href="%s">sign out</a>]' % (
+                user.nickname(), users.create_logout_url(self.request.uri)))
         else:
-            self.redirect(users.create_login_url(self.request.uri))
+	    self.response.out.write('Hello world! Sign in at: ')
+	    #self.response.out.write('[<a href="%s">%s</a>]' % (users.create_login_url(federated_identity='Yahoo.com', dest_url='/'), 'Yahoo.com'))
+            for p in openIdProviders:
+                p_name = p.split('.')[0] # take "AOL" from "AOL.com"
+                p_url = p.lower()        # "AOL.com" -> "aol.com"
+                self.response.out.write('[<a href="%s">%s</a>]' % (users.create_login_url(federated_identity=p_url, dest_url='/'), p_name))
             
 class TestReview(webapp.RequestHandler):
     def get(self):
