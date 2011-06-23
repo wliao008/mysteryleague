@@ -12,7 +12,7 @@ class MainPage(webapp.RequestHandler):
         if pagenum == None:
             pagenum = 0
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
-        articles = models.model.Article.all().filter('item_type =', 1)
+        articles = models.model.Article.all()#.filter('item_type =', 1)
         articles.order("-created_date")
         offset = PAGE_SIZE * int(pagenum)
         count = articles.count()

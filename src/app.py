@@ -8,8 +8,8 @@ urls = [
 	(r'/login', Login),
 	(r'/_ah/login_required', Login),
 	(r'/logout', Logout),
-	(r'/(detail)/(\w+)', ArticleDetail),
-	(r'/item/addreview', ArticleDetail),
+	(r'/detail/(\d)-(\w+)', ItemDetail),
+	(r'/item/addreview', ItemDetail),
 	(r'/testuser', TestUser),
 	(r'/setting', Setting),
 	# more url patterns
