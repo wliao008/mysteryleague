@@ -1,7 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
-import models.model
+from models import model
 import os
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
@@ -12,7 +12,7 @@ class MainPage(webapp.RequestHandler):
         if pagenum == None:
             pagenum = 0
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
-        articles = models.model.Article.all()
+        articles = model.Article.all()
         articles.order("-created_date")
         offset = PAGE_SIZE * int(pagenum)
         count = articles.count()
@@ -21,7 +21,7 @@ class MainPage(webapp.RequestHandler):
 
 class Login(webapp.RequestHandler):
     def get(self):
-	user = users.get_current_user()
+        #user = users.get_current_user()
         action = self.request.get('action')
         target_url = self.request.get('continue')
         if action and action == "verify":
@@ -34,5 +34,5 @@ class Login(webapp.RequestHandler):
 
 class Logout(webapp.RequestHandler):
     def get(self):
-	url = users.create_logout_url("/")
-	self.redirect(url)
+        url = users.create_logout_url("/")
+        self.redirect(url)
