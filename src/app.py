@@ -13,6 +13,7 @@ urls = [
 	(r'/testuser', TestUser),
 	(r'/setting', Setting),
 	(r'/test', Test),
+	(r'/new_account', NewAccount),
 	# more url patterns
 ]
 

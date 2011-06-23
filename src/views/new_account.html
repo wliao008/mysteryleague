@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+{{ user.federated_identity }} is not found in our database, you can tie this claimed identifier with us.
+
+<form>
+<input type="submit" value="save"/>
+</form>
+
+{% endblock %}
