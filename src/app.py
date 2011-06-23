@@ -12,6 +12,7 @@ urls = [
 	(r'/item/addreview', ArticleDetail),
 	(r'/testuser', TestUser),
 	(r'/setting', Setting),
+	(r'/new_account', NewAccount),
 	# more url patterns
 ]
 

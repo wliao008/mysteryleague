@@ -15,3 +15,10 @@ class Setting(webapp.RequestHandler):
         else:
             login_url = "/login?continue=" + self.request.uri
             self.redirect(login_url)
+
+class NewAccount(webapp.RequestHandler):
+    def get(self):
+	path = os.path.join(os.path.dirname(VIEWS_PATH), 'new_account.html')
+	model = {'user': user}
+	self.response.out.write(template.render(path, model))
+	
