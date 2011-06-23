@@ -1,7 +1,7 @@
+from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.api import users
-from models import model
+import models.model
 import os
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
@@ -12,7 +12,7 @@ class MainPage(webapp.RequestHandler):
         if pagenum == None:
             pagenum = 0
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
-        articles = model.Article.all()
+        articles = models.model.Article.all().filter('item_type =', 1)
         articles.order("-created_date")
         offset = PAGE_SIZE * int(pagenum)
         count = articles.count()

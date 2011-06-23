@@ -12,6 +12,13 @@ indexes:
 
 - kind: Item
   properties:
+  - name: ItemType
+  - name: class
+  - name: created_date
+    direction: desc
+
+- kind: Item
+  properties:
   - name: class
   - name: createDate
     direction: desc
@@ -19,5 +26,12 @@ indexes:
 - kind: Item
   properties:
   - name: class
+  - name: created_date
+    direction: desc
+
+- kind: Item
+  properties:
+  - name: class
+  - name: item_type
   - name: created_date
     direction: desc
