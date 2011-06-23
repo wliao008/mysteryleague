@@ -14,7 +14,7 @@ openIdProviders = (
 
 class Test(webapp.RequestHandler):
     def get(self):
-        create()
+        create_article()
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.out.write('Test')
         self.response.out.write('<p>Created')
@@ -58,8 +58,21 @@ def create():
     content = "this is the content of the article"
     usr = model.User(email="wliao008@gmail.com",nickname="wliao")
     usr.put()
-    article = model.Article(item_type=1,title=title, original_author=author,summary=summary, content_html=content, user=usr)
+    book = model.Book(item_type=2,title=title, summary=summary, content_html=content, user=usr)
+    book.isbn = "123456789"
+    
+    book.put()    
 
+def create_article():
+    title = "Test title - article"
+    author = "wliao"
+    summary = "this is a test"
+    content = "this is the content of the article"
+    usr = model.User(email="wliao0082@gmail.com",nickname="wliao2")
+    usr.put()
+    article = model.Article(item_type=1,title=title, summary=summary, content_html=content, user=usr)
+    article.original_author = "wei liao"
+    
     article.put()    
 
 def main():

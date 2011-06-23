@@ -25,43 +25,6 @@ python_preamble:
 
 transformers:
 
-- kind: Status
-  connector: csv 
-  connector_options:
-      encoding: utf-8
-      skip_import_header_row: true
-  property_map:
-    - property: __key__
-      external_name: key
-      import_template: "%(status_name)s"
-
-    - property: status_name
-      external_name: status_name
-
-- kind: User
-  connector: csv 
-  connector_options:
-      encoding: utf-8
-      skip_import_header_row: true
-  property_map:
-    - property: __key__
-      external_name: key
-      import_template: "%(nickname)s"
-
-    - property: email
-      external_name: email
-
-    - property: nickname
-      external_name: nickname
-
-    - property: gravatar_icon_url
-      external_name: gravatar_icon_url
-
-    - property: created_date
-      external_name: created_date
-      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S.%f')
-      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S.%f')
-
 - kind: Item
   connector: csv 
   connector_options:
@@ -140,40 +103,33 @@ transformers:
     - property: icon_url
       external_name: icon_url
 
-- kind: Review
-  connector: csv 
-  connector_options:
-      encoding: utf-8
-      skip_import_header_row: true
-      import_options:
-          delimiter: "|"
-  property_map:
-    - property: __key__
-      external_name: key
-      export_transform: transform.key_id_or_name_as_string
+    # book related
+    - property: isbn
+      external_name: isbn
 
-    - property: subject
-      external_name: subject
+    - property: sub_title
+      external_name: sub_title
 
-    - property: ip_address
-      external_name: ip_address
+    - property: original
+      external_name: original
 
-    - property: content_html
-      external_name: content_html
-      import_transform: db.Text
-            
-    - property: user
-      external_name: user
-      import_transform: transform.create_foreign_key('User')
-            
-    - property: item
-      external_name: item
-      import_transform: transform.create_foreign_key('Item')
-      
-    - property: created_date
-      external_name: created_date
-      # Type: Date/Time Stats: 100 properties of this type in this kind.
-      import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S.%f')
-      export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S.%f')
+    - property: price
+      external_name: price
+      import_transform: transform.none_if_empty(float)
 
+    - property: published_year
+      external_name: published_year
+      import_transform: transform.none_if_empty(int)
+
+    - property: published_month
+      external_name: published_month
+      import_transform: transform.none_if_empty(int)
+
+    - property: published_day
+      external_name: published_day
+      import_transform: transform.none_if_empty(int)
+
+    - property: page_count
+      external_name: page_count
+      import_transform: transform.none_if_empty(int)
 

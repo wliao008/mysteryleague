@@ -34,6 +34,17 @@ class Item(polymodel.PolyModel):
 class Article(Item):
     original_author = db.StringProperty()
 
+class Book(Item):
+    isbn = db.StringProperty()
+    sub_title = db.StringProperty()
+    original_title = db.StringProperty()
+    price = db.FloatProperty(default=None)
+    published_year = db.IntegerProperty(default=None)
+    published_month = db.IntegerProperty(default=None)
+    published_day = db.IntegerProperty(default=None)
+    page_count = db.IntegerProperty(default=None)
+    
+
 class Review(db.Model):
     item = db.ReferenceProperty(Item, collection_name='reviews')
     subject = db.StringProperty()

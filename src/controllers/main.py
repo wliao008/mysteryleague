@@ -12,11 +12,11 @@ class MainPage(webapp.RequestHandler):
         if pagenum == None:
             pagenum = 0
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'index.html')
-        articles = models.model.Article.all()#.filter('item_type =', 1)
-        articles.order("-created_date")
+        items = models.model.Item.all()#.filter('item_type =', 1)
+        items.order("-created_date")
         offset = PAGE_SIZE * int(pagenum)
-        count = articles.count()
-        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'articles': articles.fetch(PAGE_SIZE, offset), }
+        count = items.count()
+        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), }
         self.response.out.write(template.render(path, model))
 
 class Login(webapp.RequestHandler):

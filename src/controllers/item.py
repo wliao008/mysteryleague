@@ -3,13 +3,15 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 import os
 import cgi
-from models import model
+import models.model
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
 class ItemDetail(webapp.RequestHandler):
     def get(self, item_type, key):
 	item_template = ''
+	book = None
+	item = None
 	if item_type == '1':
 		item_template = 'articledetail.html'
 	elif item_type == '2':
@@ -29,7 +31,7 @@ class ItemDetail(webapp.RequestHandler):
 		login_url = "/login?continue=" + self.request.uri
 		login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
 
-        model = {'item': item, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
+        model = {'book': book, 'item': item, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
         self.response.out.write(template.render(path, model))
 
     def post(self):

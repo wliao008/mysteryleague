@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block left %}
 <span align="right">
-book img
+book img<br>
+hits: {{ item.hits }}
 </span>
 {% endblock %}
 {% block content %}
-basic info
+Title: {{ item.title }}<br>
+ISBN: {{ item.isbn }}<br>
+Page: {{ item.page_count }}<br>
+<br>
+{{ item.summary }}
 <hr>
 hook to facebook, twitter
 

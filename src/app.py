@@ -12,6 +12,7 @@ urls = [
 	(r'/item/addreview', ItemDetail),
 	(r'/testuser', TestUser),
 	(r'/setting', Setting),
+	(r'/test', Test),
 	# more url patterns
 ]
 
