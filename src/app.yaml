@@ -28,5 +28,8 @@ handlers:
 - url: /memberdata
   static_dir: memberdata
 
+- url: /pics
+  static_dir: pics
+
 - url: /.*
   script: app.py 
