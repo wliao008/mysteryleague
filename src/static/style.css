@@ -3,7 +3,7 @@
     font-size: 10pt;
     font-family: Verdana, Helvetica, Sans-Serif;
     margin: 0;
-    padding: 4;
+    padding: 0;
     color: #000;
 }
 
@@ -19,7 +19,20 @@ table{
     font-size: 10pt;
     font-family: Verdana, Helvetica, Sans-Serif;
 }
-
+.floatleft
+{
+    float:left;
+}
+.floatright
+{
+    float:right;
+}
+div#header
+{
+    margin: 0;
+    padding: 4;
+    height:12px;
+}
 div#main
 {
     width: 1000px;

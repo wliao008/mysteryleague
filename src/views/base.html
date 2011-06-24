@@ -6,9 +6,10 @@
 </head>
 <body>
   <div id="header">
-  <a href="/">mystery league</a> (v0.03) | {% curr_user %} | <a href="/login">login</a> | <a href="/logout">logout</a> | <a href="/setting">setting</a>
-  <hr size="1"/>
+  	<div class="floatleft"><a href="/">mystery league</a> (v0.04)</div>
+  	<div class="floatright">{% curr_user %}</div>
   </div>
+  <hr>
   <div id="main">
 	  <div id="leftbar">
 	    {% block left %}{% endblock%}

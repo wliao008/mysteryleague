@@ -1,4 +1,4 @@
-from google.appengine.api import users
+from google.appengine.api import users, memcache
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 import models.model
@@ -26,13 +26,14 @@ class Login(webapp.RequestHandler):
         #user = users.get_current_user()
         action = self.request.get('action')
         target_url = self.request.get('continue')
+	#memcache.add(key="return_url", value=self.request.uri, time=300)
         if action and action == "verify":
             f = self.request.get('openid_identifier')
             url = users.create_login_url(target_url, federated_identity=f)
             self.redirect(url)
         else:
             self.response.out.write(template.render(VIEWS_PATH + "login.html", \
-                {"continue_to": target_url}))
+                {"continue_to": "/user/authenticate"}))
 
 class Logout(webapp.RequestHandler):
     def get(self):

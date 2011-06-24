@@ -31,7 +31,7 @@ class Authenticate(webapp.RequestHandler):
 	if user:# and user.federated_identity():
 	    #check local db
 	    #openid = db.Query(models.model.OpenID).filter('claimed_identifier =', 'test')#user.federated_identity())
-	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', 'test')
+	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', user.federated_identity())
 	    openid = query.fetch(1)
 	    if openid:
 	        #self.response.out.write('federated_identity: ' + user.federated_identity() + ' | ')
@@ -40,7 +40,7 @@ class Authenticate(webapp.RequestHandler):
 		#self.response.out.write(user.nickname() + ' exists')
 		self.redirect(return_url)
 	    else:
-		self.response.out.write(user.nickname() + ' DOES NOT exists')
+		#self.response.out.write(user.nickname() + ' DOES NOT exists')
                 path = os.path.join(os.path.dirname(VIEWS_PATH), 'new_account.html')
 		model={'user': user}
 		self.response.out.write(template.render(path, model))
@@ -49,8 +49,13 @@ class Authenticate(webapp.RequestHandler):
 	    self.response.out.write('Unable to get user obj')
 
 class Register(webapp.RequestHandler):
-    def get(self):
+    def post(self):
 	CreateUser(self)
+	return_url = memcache.get("return_url")
+	if return_url:
+	    self.redirect(return_url)
+	else:
+	    self.redirect('/')
 
 def CreateUser(self):
     usr = models.model.User()
