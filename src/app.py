@@ -20,6 +20,8 @@ urls = [
 	(r'/testuser', TestUser),
 	(r'/test', Test),
 	(r'/new_account', NewAccount),
+	(r'/notfound', Error),
+	(r'/.*', Error),
 	# more url patterns
 ]
 
