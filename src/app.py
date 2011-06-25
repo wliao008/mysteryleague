@@ -13,6 +13,7 @@ urls = [
 	(r'/logout', Logout),
 	(r'/detail/(\d)-(\w+)', ItemDetail),
 	(r'/detail/review/(\d)-(\w+)', ItemReview),
+	(r'/detail/edit/(\d)-(\w+)', ItemEdit),
 	(r'/item/addreview', ItemDetail),
 	(r'/user/setting', Setting),
 	(r'/user/(\w+)/', UserIndex),

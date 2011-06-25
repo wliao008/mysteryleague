@@ -36,7 +36,7 @@ class ItemDetail(webapp.RequestHandler):
             model = {'book': book, 'item': item, 'curr_user': curr_user, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
             self.response.out.write(template.render(path, model))
 	except db.Error:
-	    self.error(404)
+	    self.error(500)
 	    self.redirect('/notfound')
 	    #self.response.out.write('err')
 
@@ -51,6 +51,33 @@ class ItemDetail(webapp.RequestHandler):
         review.put()
         self.redirect("/detail/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
 
+class ItemEdit(webapp.RequestHandler):
+    def get(self, item_type, key):
+	item_template = ''
+	item = None
+	if item_type == '1':
+		item_template = 'articledetailedit.html'
+	elif item_type == '2':
+		item_template = 'bookdetailedit.html'
+	elif item_type == '3':
+		item_template = 'persondetailedit.html'
+	try:
+	    item = db.get(key)
+            path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
+	    model = {'item': item}
+	    self.response.out.write(template.render(path, model))
+	except db.Error:
+	    self.error(500)
+	    self.redirect('/notfound')
+
+    def post(self, item_type, key):
+	content_html = self.request.get('content_html')
+	item = db.get(key)
+	item.content_html = content_html
+	item.put()	
+	self.redirect('/detail/%(item_type)s-%(key)s' % {'item_type': item_type, 'key': key})
+	    
+	
 
 class ItemReview(webapp.RequestHandler):
     def get(self, item_type, key):
