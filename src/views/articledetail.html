@@ -2,9 +2,11 @@
 {% block left %}
 <span align="right">
 <img src="{{ item.user.gravatar_icon_url }}?s=32"><br>
-{{ item.user.nickname }}<br>
+<a class="gray" href='/user/{{item.user.key}}/'>{{ item.user.nickname }}</a><br>
+<span class="gray">
 {{ item.created_date|date:"m/d/Y" }}<br>
 hits: {{ item.hits }}
+</span>
 </span>
 {% endblock %}
 {% block content %}
