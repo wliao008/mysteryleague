@@ -58,6 +58,13 @@ div#content
     overflow: hidden;
 }
 
+/* table like div */
+.container{display:table;}
+.row{display: table-row;}
+.left,.right,.middle{display:table-cell;vertical-align:top;padding-right:4px;}
+/* end table like div */
+
+
 /* links */
 a:link{color: #034af3;text-decoration: none;}
 a:visited{color: #034af3;}
