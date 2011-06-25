@@ -19,20 +19,26 @@ class ItemDetail(webapp.RequestHandler):
 	elif item_type == '3':
 		item_template = 'persondetail.html'
 
-        path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
-        item = db.get(key)
-        item.hits += 1
-        item.put()
-        user = users.get_current_user()
-        login_url = ""
-        login_msg = ""
-        if not user:
+	try:
+	    item = db.get(key)
+            path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
+            item.hits += 1
+            item.put()
+            user = users.get_current_user()
+            login_url = ""
+            login_msg = ""
+            if not user:
 		#login_url = users.create_login_url(self.request.uri)
 		login_url = "/login?continue=" + self.request.uri
 		login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
 
-        model = {'book': book, 'item': item, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
-        self.response.out.write(template.render(path, model))
+            model = {'book': book, 'item': item, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
+            self.response.out.write(template.render(path, model))
+	except db.Error:
+	    self.error(404)
+	    self.redirect('/notfound')
+	    #self.response.out.write('err')
+
 
     def post(self):
         #TODO: shouldn't retrieve the whole article object just to reference it,

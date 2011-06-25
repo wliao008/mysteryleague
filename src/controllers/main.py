@@ -40,5 +40,11 @@ class Logout(webapp.RequestHandler):
         url = users.create_logout_url("/")
         self.redirect(url)
 
+class Error(webapp.RequestHandler):
+    def get(self):
+	path = os.path.join(os.path.dirname(VIEWS_PATH), 'default_error.html')
+	model = {'error_msg': 'error'}
+	self.response.out.write(template.render(path, model))
+
 def dummy():
     print 'dummy'
