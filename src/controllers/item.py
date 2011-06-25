@@ -71,8 +71,8 @@ class ItemEdit(webapp.RequestHandler):
 	    self.redirect('/notfound')
 
     def post(self, item_type, key):
-	content_html = self.request.get('content_html')
-	self.response.out.write(content_html)
+	content_wmd = self.request.get('content_wmd')
+	self.response.out.write(content_wmd)
 	#item = db.get(key)
 	#item.content_html = content_html
 	#item.put()	

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block left %}
 <span align="right">
-<img src="{{ item.user.gravatar_icon_url }}?s=32"><br>
+<img src="{{ item.user.gravatar_icon_url }}&s=32"><br>
 <a class="gray" href='/user/{{item.user.key}}/'>{{ item.user.nickname }}</a><br>
 <span class="gray">
 {{ item.created_date|date:"m/d/Y" }}<br>
