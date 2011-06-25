@@ -29,8 +29,8 @@ class NewAccount(webapp.RequestHandler):
 
 class Authenticate(webapp.RequestHandler):
     def get(self):
-        user = users.get_current_user()
-	if user:# and user.federated_identity():
+        curr_user = users.get_current_user()
+	if curr_user:# and user.federated_identity():
 	    #check local db
 	    #openid = db.Query(models.model.OpenID).filter('claimed_identifier =', 'test')#user.federated_identity())
 	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', user.federated_identity())
@@ -38,6 +38,7 @@ class Authenticate(webapp.RequestHandler):
 	    if openid:
 	        #self.response.out.write('federated_identity: ' + user.federated_identity() + ' | ')
 	        return_url = memcache.get("return_url")
+		memcache.add('user', openid.user, 60)			
 		#self.response.out.write('return_url: ' + data + ' | ')
 		#self.response.out.write(user.nickname() + ' exists')
 		self.redirect(return_url)

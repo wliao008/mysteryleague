@@ -1,6 +1,6 @@
 from google.appengine.ext import db, webapp
 from google.appengine.ext.webapp import template
-from google.appengine.api import users
+from google.appengine.api import users, memcache
 import os
 import cgi
 import models.model
@@ -24,15 +24,16 @@ class ItemDetail(webapp.RequestHandler):
             path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
             item.hits += 1
             item.put()
-            user = users.get_current_user()
+            curr_user = users.get_current_user()
             login_url = ""
             login_msg = ""
-            if not user:
+            if not curr_user:
 		#login_url = users.create_login_url(self.request.uri)
 		login_url = "/login?continue=" + self.request.uri
 		login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
 
-            model = {'book': book, 'item': item, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
+	    user = memcache.get('user')
+            model = {'book': book, 'item': item, 'curr_user': curr_user, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
             self.response.out.write(template.render(path, model))
 	except db.Error:
 	    self.error(404)
@@ -40,16 +41,15 @@ class ItemDetail(webapp.RequestHandler):
 	    #self.response.out.write('err')
 
 
-    def post(self):
-        #TODO: shouldn't retrieve the whole article object just to reference it,
-        #there should be a better way, research on how the foreign key work in appengine
-        key = self.request.get('key')
+    def post(self, item_type, key):
+	user = memcache.get('user')
         article = db.get(key)
-        review = model.Review()
+        review = models.model.Review()
         review.content_html = cgi.escape(self.request.get('content'))
         review.item = article
+	review.user = user
         review.put()
-        self.redirect("/detail/" + key)
+        self.redirect("/detail/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
 
 class ItemReview(webapp.RequestHandler):
     def get(self, item_type, key):

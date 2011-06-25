@@ -25,12 +25,12 @@ hook to facebook, twitter
 	</tr>
 {% endfor %}
 	<tr><td colspan="2"><hr></td></tr>
-{% if user %}
-	<form action="/item/addreview" method="post">
+{% if curr_user %}
+	<form method="post">
 	<tr>
-		<td width="40" valign="top">{{ user.nickname }} </td>
+		<td width="40" valign="top">{{ curr_user.nickname }} </td>
 		<td>
-			<input type="hidden" id="key" name="key" value="{{ article.key }}" />
+			<input type="hidden" id="user_key" name="user_key" value="{{ user.key }}" />
 			<textarea name="content" rows="3" style="width:100%"></textarea>
 		    <br>{{ login_url }}</td>
 	</tr>

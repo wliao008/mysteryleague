@@ -19,5 +19,6 @@ def curr_user():
 def ver():
     return os.environ['CURRENT_VERSION_ID']
 
+
 register.simple_tag(curr_user)
 register.simple_tag(ver)
