@@ -1,7 +1,10 @@
 from google.appengine.ext import db, webapp
+from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import users
 from models import model
+import os
+import markdown
 
 openIdProviders = (
     'Google.com/accounts/o8/id', # shorter alternative: "Gmail.com"
@@ -11,6 +14,8 @@ openIdProviders = (
     'MyOpenID.com',
     # add more here
 )
+
+VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
 class Test(webapp.RequestHandler):
     def get(self):
@@ -47,7 +52,14 @@ class TestReview(webapp.RequestHandler):
             review1.put();
         
         self.response.out.write('review created')
-        
+
+class TestWMD(webapp.RequestHandler):
+    def get(self):
+	wmd = '**hi**'
+	ret = markdown.markdown(wmd)
+	model = {'wmd': ret}	
+	path = os.path.join(os.path.dirname(VIEWS_PATH), 'test.html')
+	self.response.out.write(template.render(path, model))
 
 app = webapp.WSGIApplication([('/test/*', Test), ('/testuser/*', TestUser), ('/testreview/*', TestReview)], debug=True)
 

@@ -20,6 +20,7 @@ urls = [
 	(r'/user/(\w+)/page(\d+)', UserIndex),
 	(r'/testuser', TestUser),
 	(r'/test', Test),
+	(r'/testwmd', TestWMD),
 	(r'/new_account', NewAccount),
 	(r'/notfound', Error),
 	(r'/.*', Error),

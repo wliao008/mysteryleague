@@ -72,10 +72,11 @@ class ItemEdit(webapp.RequestHandler):
 
     def post(self, item_type, key):
 	content_html = self.request.get('content_html')
-	item = db.get(key)
-	item.content_html = content_html
-	item.put()	
-	self.redirect('/detail/%(item_type)s-%(key)s' % {'item_type': item_type, 'key': key})
+	self.response.out.write(content_html)
+	#item = db.get(key)
+	#item.content_html = content_html
+	#item.put()	
+	#self.redirect('/detail/%(item_type)s-%(key)s' % {'item_type': item_type, 'key': key})
 	    
 	
 
