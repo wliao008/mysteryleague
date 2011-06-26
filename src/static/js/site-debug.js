@@ -1,5 +1,6 @@
 $(ready);
 function ready(){
+    $("#mytags").tagit();
     $("#wmd-preview").hide();
     $('#lnkPreview').click(function(){
 	toggle_preview();
