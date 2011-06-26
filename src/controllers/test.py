@@ -20,6 +20,5 @@ class Testajax(webapp.RequestHandler):
         data = []
         for x in result:
             data.append(x.name)
-        #count = len(result)
-        #model = {'msg': str(count)}
         self.response.out.write(simplejson.dumps(data))
+	#self.response.out.write(term)

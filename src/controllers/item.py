@@ -95,20 +95,9 @@ class ItemEdit(webapp.RequestHandler):
 
     def post(self, item_type, key=None):
         title = self.request.get('title')
-        content_wmd = self.request.get('content_wmd')
-        if key:
-            item = db.get(key)	
-        else:
-            summary = ""
-            usr = memcache.get('user')
-            item = models.model.Article(item_type=int(item_type),title=title, summary=summary, user=usr)
-
-        item.title = title
-        item.content_wmd = content_wmd
-        item.content_html = markdown.markdown(content_wmd, output_format='html')
-        #self.response.out.write(item.content_html)
-        item.put()	
-        self.redirect('/')
+	tags = self.request.get('tags[term][]', allow_multiple=True)
+	for tag in tags:
+	    self.response.out.write(tag + " | ")
 
 class ItemReview(webapp.RequestHandler):
     def get(self, item_type, key):
