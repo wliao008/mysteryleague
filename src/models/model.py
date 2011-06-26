@@ -58,3 +58,8 @@ class Review(db.Model):
     rating = db.RatingProperty()
     up_vote = db.IntegerProperty(default=0)
     down_vote = db.IntegerProperty(default=0)
+
+class Tag(db.Model):
+    name = db.StringProperty(required=True)
+    count = db.IntegerProperty(default=1)
+    item = db.ReferenceProperty(Item, collection_name='tags')

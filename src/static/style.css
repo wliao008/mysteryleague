@@ -15,6 +15,7 @@ hr
     border-top-color: #C0C0C0;
 }
 
+.p100{width:100%;}
 table{
     font-size: 10pt;
     font-family: Verdana, Helvetica, Sans-Serif;
@@ -61,7 +62,7 @@ div#content
 /* table like div */
 .container{display:table;}
 .row{display: table-row;}
-.left,.right,.middle{display:table-cell;vertical-align:top;padding-right:4px;}
+.left,.right,.middle{display:table-cell;vertical-align:top;padding-right:4px;padding-top:2px;}
 /* end table like div */
 
 

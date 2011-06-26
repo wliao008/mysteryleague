@@ -17,13 +17,30 @@
 {% block content %}
 
 <form method="post">
-Title: <input type="text" id="title" name="title" value="{{ item.title }}" />
-<div id="wmd-button-bar" class="wmd-panel"></div>
-<textarea id="wmd-input" name="content_wmd" class="wmd-panel resizable" rows="6" cols="60">{{ item.content_wmd }}</textarea>
-<div id="wmd-preview" class="wmd-panel"></div>
-<input type="submit" value="Save"/>
-</form>
+<div class="container">
+    <div class="row">
+	<div class="left">Title</div>
+	<div class="middle"><input class="p100" type="text" id="title" name="title" value="{{ item.title }}"/></div>
+    </div>
 
+    <div class="row">
+	<div class="left"></div>
+	<div id="wmd-button-bar" class="wmd-panel middle"></div>
+    </div>
+    <div class="row">
+	<div class="left"></div>
+	<div class="middle"><textarea class="p100" id="wmd-input" name="content_wmd" class="wmd-panel resizable" rows="16">{{ item.content_wmd }}</textarea></div>
+    </div>
+    <div class="row">
+	<div class="left"><a href="javascript:void(0);" id="lnkPreview">Preview</a></div>
+	<div id="wmd-preview" class="wmd-panel middle"></div>
+    </div>
+    <div class="row">
+	<div class="left"></div>
+	<div class="middle"><input type="submit" value="Save"/></div>
+    </div>
+</div>
+</form>
 {% endblock %}
 
 {% block footer_scripts %}

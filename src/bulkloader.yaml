@@ -38,6 +38,31 @@ transformers:
     - property: status_name
       external_name: status_name
 
+
+- kind: Tag
+  connector: csv 
+  connector_options:
+      encoding: utf-8
+      skip_import_header_row: true
+      import_options:
+          delimiter: "|"
+  property_map:
+    - property: __key__
+      external_name: key
+      import_template: "%(id)s"
+
+    - property: name
+      external_name: name
+
+    - property: count
+      external_name: count
+      import_transform: int
+
+    - property: item
+      external_name: item
+      import_transform: transform.create_foreign_key('Item')
+
+
 - kind: User
   connector: csv 
   connector_options:

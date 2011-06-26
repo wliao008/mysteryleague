@@ -1,12 +1,14 @@
 <html>
 <head>
-  <title>{% block title %}神秘联盟{% endblock %}{%block sub_title%}{%endblock%}</title>
+  <title>{% block title %}mystery league{% endblock %}{%block sub_title%}{%endblock%}</title>
   <link href="/static/style.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+  <script src="/static/js/site-debug.js" type="text/javascript"></script>
   {% block head_scripts %}{% endblock%}
 </head>
 <body>
   <div id="header">
-  	<div class="floatleft"><a href="/">神秘联盟</a> ({% ver %})</div>
+  	<div class="floatleft"><a href="/">mystery league</a> ({% ver %})</div>
   	<div class="floatright">{% curr_user %}</div>
   </div>
   <hr>
@@ -24,7 +26,7 @@
   <div id="footer">
 	<hr size="1">
 	{% block footer %}
-	(c) 神秘联盟, 2003-2011
+	(c) mystery league, 2003-2011
 	{% endblock%}
   </div>
   {% block footer_scripts %}
