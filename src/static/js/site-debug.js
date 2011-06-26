@@ -1,6 +1,8 @@
 $(ready);
 function ready(){
-    $("#mytags").tagit();
+    $("#mytags").tagit({
+	allowSpaces: true
+    });
     $("#wmd-preview").hide();
     $('#lnkPreview').click(function(){
 	toggle_preview();
