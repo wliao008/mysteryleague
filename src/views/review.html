@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block left %}
+<span align="right">
+<img src="/pics/m/{{ item.icon_url }}"/>
+</span>
+{% endblock %}
+{% block content %}
+<p class="title">{{ item.title }}</p>
+<form action="/detail/review/{{ item.item_type }}-{{ item.key }}" method="post">
+    <input type="hidden" id="key" name="key" value="{{ article.key }}" /><br>
+    Title: <input type="text" id="title" name="title" /><br>
+    <textarea name="content" rows="3" style="width:100%"></textarea><br>
+    <input type="submit" value="Save"/>
+</form>
+{% endblock %}

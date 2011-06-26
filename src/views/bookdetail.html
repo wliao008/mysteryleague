@@ -6,14 +6,15 @@ hits: {{ item.hits }}
 </span>
 {% endblock %}
 {% block content %}
-Title: {{ item.title }}<br>
+<p class="title">{{ item.title }}</p>
 ISBN: {{ item.isbn }}<br>
 Page: {{ item.page_count }}<br>
 <br>
 {{ item.summary }}
 <hr>
 hook to facebook, twitter
-
+<hr>
+<a href="/detail/review/{{ item.item_type }}-{{ item.key }}">Post Review</a>
 <br>
 reviews
 <br><br>

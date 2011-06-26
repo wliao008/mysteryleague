@@ -9,6 +9,7 @@ urls = [
 	(r'/_ah/login_required', Login),
 	(r'/logout', Logout),
 	(r'/detail/(\d)-(\w+)', ItemDetail),
+	(r'/detail/review/(\d)-(\w+)', ItemReview),
 	(r'/item/addreview', ItemDetail),
 	(r'/testuser', TestUser),
 	(r'/setting', Setting),

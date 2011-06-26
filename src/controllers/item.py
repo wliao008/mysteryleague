@@ -44,3 +44,22 @@ class ItemDetail(webapp.RequestHandler):
         review.item = article
         review.put()
         self.redirect("/detail/" + key)
+
+class ItemReview(webapp.RequestHandler):
+    def get(self, item_type, key):
+        path = os.path.join(os.path.dirname(VIEWS_PATH), 'review.html')	
+	item = db.get(key)
+ 	model = {'item': item}
+        self.response.out.write(template.render(path, model))
+
+    def post(self):
+    	title = self.request.get('title')
+	author = "wliao"
+    	summary = "this is a test"
+    	content_html = self.request.get('content')
+    	usr = model.User(email="wliao0082@gmail.com",nickname="wliao2")
+    	usr.put()
+    	article = model.Article(item_type=1,title=title, summary=summary, content_html=content, user=usr)
+	article.put()
+        self.redirect('/detail/' + item_type + '-' + key)
+

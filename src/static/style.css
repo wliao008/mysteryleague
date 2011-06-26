@@ -65,3 +65,24 @@ a:active
     color: #034af3;
 }
 /* end links */
+
+.pagelink
+{
+    padding: 4px;
+}
+
+.selected
+{
+    font-size: 12pt;
+    font-weight:bold;
+    background: #ADDFFF;
+}
+
+.gray
+{
+    color: #707070;
+}
+.title
+{
+    font-size:14pt;
+}

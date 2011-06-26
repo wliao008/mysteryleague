@@ -3,7 +3,6 @@
 <span align="right">
 <img src="{{ item.user.gravatar_icon_url }}?s=32"><br>
 {{ item.user.nickname }}<br>
-real name: {{ item.original_author }}<br>
 {{ item.created_date|date:"m/d/Y" }}<br>
 hits: {{ item.hits }}
 </span>
@@ -19,8 +18,8 @@ hook to facebook, twitter
 {% for review in item.reviews %}
 	<tr><td colspan="2"><hr></tr>
 	<tr>
-		<td width="40" valign="top"><img src="{{ item.user.gravatar_icon_url }}?s=32"><br>{{ review.user.nickname }}</td>
-		<td valign="top">{{ review.created_date|date:"m/d/Y" }}<br>{{ review.content_html }}</td>
+		<td width="40" valign="top"><img src="{{ item.user.gravatar_icon_url }}?s=32"></td>
+		<td valign="top">{{ review.user.nickname }}, <span class="gray">{{ review.created_date|date:"m/d/Y" }}</span><br>{{ review.content_html }}</td>
 	</tr>
 {% endfor %}
 	<tr><td colspan="2"><hr></td></tr>
