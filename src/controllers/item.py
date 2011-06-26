@@ -65,7 +65,7 @@ class ItemEdit(webapp.RequestHandler):
         if item_type == '1':
             item_template = 'articledetailedit.html'
         elif item_type == '2':
-            item_template = 'bookdetailedit.html'
+            item_template = 'articledetailedit.html'#'bookdetailedit.html'
         elif item_type == '3':
             item_template = 'persondetailedit.html'
         try:
@@ -96,8 +96,34 @@ class ItemEdit(webapp.RequestHandler):
     def post(self, item_type, key=None):
         title = self.request.get('title')
 	tags = self.request.get('tags[term][]', allow_multiple=True)
+
+        content_wmd = self.request.get('content_wmd')
+        item = None
+        if key:
+            item = db.get(key)	
+        else:
+            summary = ""
+            usr = memcache.get('user')
+            item = models.model.Article(item_type=int(item_type),title=title, summary=summary, user=usr)
+
+        item.title = title
+        item.content_wmd = content_wmd
+        item.content_html = markdown.markdown(content_wmd, output_format='html')
 	for tag in tags:
-	    self.response.out.write(tag + " | ")
+	    query = db.GqlQuery("SELECT * FROM Tag WHERE name = :1", tag)
+	    curr_tag = query.fetch(1)
+	    if curr_tag and curr_tag[0]:
+		curr_tag[0].tagcount += 1
+		curr_tag[0].put()
+		item.tags.append(curr_tag[0].key())
+	    else:
+		new_tag = models.model.Tag(name=tag)
+		new_tag.put()
+		item.tags.append(new_tag.key())
+	
+        #self.response.out.write(item.content_html)
+        item.put()	
+        self.redirect('/')
 
 class ItemReview(webapp.RequestHandler):
     def get(self, item_type, key):

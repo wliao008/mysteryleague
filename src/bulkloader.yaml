@@ -54,8 +54,8 @@ transformers:
     - property: name
       external_name: name
 
-    - property: count
-      external_name: count
+    - property: tagcount
+      external_name: tagcount
       import_transform: int
 
 

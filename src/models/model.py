@@ -6,7 +6,7 @@ class Status(db.Model):
 
 class Tag(db.Model):
     name = db.StringProperty(required=True)
-    count = db.IntegerProperty(default=1)
+    tagcount = db.IntegerProperty(default=1)
 
 class User(db.Model):
     email = db.StringProperty()
