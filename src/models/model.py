@@ -15,6 +15,7 @@ class OpenID(db.Model):
     friendly_identifier = db.StringProperty()
     login_count = db.IntegerProperty(default=0)
     created_date = db.DateTimeProperty(auto_now_add=True)
+    user = db.ReferenceProperty(User, collection_name='openids')
 
 class Item(polymodel.PolyModel):
     title = db.StringProperty(required=True)

@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-{{ user.federated_identity }} is not found in our database, you can tie this claimed identifier with us.
 
-<form>
-<input type="submit" value="save"/>
+<h3>Confirm</h3>
+<p>This OpenID is new to us:</p>
+<div id="openid_newacct">{{ user.federated_identity }}</div>
+<br />
+
+<form action="/user/register" method="post">
+<input type="hidden" id="federated_identity" name="federated_identity" value="{{ user.federated_identity }}" />
+<input type="hidden" id="federated_provider" name="federated_provider" value="{{ user.federated_provider }}" />
+<input type="hidden" id="email" name="email" value="{{ user.email }}" />
+<input type="hidden" id="nickname" name="nickname" value="{{ user.nickname }}" />
+<input type="submit" value="Continue"/>
 </form>
 
+<p><i>If you think you already have an account with us, and you were just trying to associate a new OpenID with your existing account, <a href="#">you're in the wrong place.</a></i></p>
 {% endblock %}
