@@ -1,5 +1,6 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext.webapp import util, template
 from controllers import *
 
 urls = [
@@ -18,6 +19,8 @@ urls = [
 	(r'/new_account', NewAccount),
 	# more url patterns
 ]
+
+webapp.template.register_template_library('chkusr')
 
 application = webapp.WSGIApplication(urls, debug=True)
 
