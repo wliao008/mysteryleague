@@ -3,8 +3,10 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users, memcache
 import models.model
 import os
+import paging
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
+PAGE_SIZE = 10
 
 class Setting(webapp.RequestHandler):
     def get(self):
@@ -57,6 +59,27 @@ class Register(webapp.RequestHandler):
 	else:
 	    self.redirect('/')
 
+class UserIndex(webapp.RequestHandler):
+    def get(self, key, pagenum=None):
+        if pagenum == None:
+            pagenum = 0
+	user = db.get(key)
+        path = os.path.join(os.path.dirname(VIEWS_PATH), 'index_user.html')
+        items = models.model.Item.all().filter('user =', user)
+        offset = PAGE_SIZE * int(pagenum)
+        count = items.count()
+        links = paging.link(pagenum, count/PAGE_SIZE, 6, 2, 'prev', 'next', dummy)
+        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
+	self.response.out.write(template.render(path, model))
+
+	'''
+        items.order("-created_date")
+        offset = PAGE_SIZE * int(pagenum)
+        links = paging.link(pagenum, count/PAGE_SIZE, 6, 2, 'prev', 'next', dummy)
+        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
+        
+	'''
+
 def CreateUser(self):
     usr = models.model.User()
     usr.nickname = self.request.get('nickname')
@@ -68,3 +91,6 @@ def CreateUser(self):
     openid.friendly_identifier = self.request.get('federated_provider')
     openid.user = usr
     openid.put()
+
+def dummy():
+    print 'dummy'

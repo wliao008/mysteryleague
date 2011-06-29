@@ -59,24 +59,15 @@ div#content
 }
 
 /* links */
-a:link
-{
-    color: #034af3;
-    text-decoration: none;
-}
-a:visited
-{
-    color: #034af3;
-}
-a:hover
-{
-    color: #1d60ff;
-    text-decoration:underline;
-}
-a:active
-{
-    color: #034af3;
-}
+a:link{color: #034af3;text-decoration: none;}
+a:visited{color: #034af3;}
+a:hover{color: #1d60ff;text-decoration:underline;}
+a:active{color: #034af3;}
+
+a.gray:link{color: #707070;text-decoration: none;}
+a.gray:visited{color: #707070;}
+a.gray:hover{color: #1d60ff;text-decoration:underline;}
+a.gray:active{color: #707070;}
 /* end links */
 
 .pagelink

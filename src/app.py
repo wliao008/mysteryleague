@@ -14,8 +14,10 @@ urls = [
 	(r'/detail/(\d)-(\w+)', ItemDetail),
 	(r'/detail/review/(\d)-(\w+)', ItemReview),
 	(r'/item/addreview', ItemDetail),
-	(r'/testuser', TestUser),
 	(r'/user/setting', Setting),
+	(r'/user/(\w+)/', UserIndex),
+	(r'/user/(\w+)/page(\d+)', UserIndex),
+	(r'/testuser', TestUser),
 	(r'/test', Test),
 	(r'/new_account', NewAccount),
 	# more url patterns
