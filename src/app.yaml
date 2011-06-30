@@ -1,5 +1,5 @@
 application: tuiliclub
-version: 1
+version: beta-v0
 runtime: python
 api_version: 1
 
