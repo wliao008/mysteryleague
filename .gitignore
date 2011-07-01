@@ -1,4 +1,5 @@
 *.pyc
 src/bulkloader-*
 src/pics
+src/.pics
 src/controllers/paging.py
