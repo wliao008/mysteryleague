@@ -51,6 +51,7 @@ class ItemDetail(webapp.RequestHandler):
         review.put()
         self.redirect("/detail/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
 
+
 class ItemReview(webapp.RequestHandler):
     def get(self, item_type, key):
         path = os.path.join(os.path.dirname(VIEWS_PATH), 'review.html')	

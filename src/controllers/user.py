@@ -4,6 +4,7 @@ from google.appengine.api import users, memcache
 import models.model
 import os
 import paging
+import hashlib
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 PAGE_SIZE = 10
@@ -41,15 +42,16 @@ class Authenticate(webapp.RequestHandler):
 	    #check local db
 	    #openid = db.Query(models.model.OpenID).filter('claimed_identifier =', 'test')#user.federated_identity())
 	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', claimed_id)
-	    openid = query.fetch(1)[0]
+	    openid = query.fetch(1)
 	    if openid:
 	        return_url = memcache.get("return_url")
-	        self.response.out.write('federated_identity: ' + claimed_id + ' | ')
-		self.response.out.write('return_url: ' + return_url  + ' | ')
-		self.response.out.write(user.nickname() + ' exists | ')
-		self.response.out.write('openid: ' + openid.claimed_identifier)
-		memcache.add('user', openid.user, 60)
+	        #self.response.out.write('federated_identity: ' + claimed_id + ' | ')
+		#self.response.out.write('return_url: ' + return_url  + ' | ')
+		#self.response.out.write(user.nickname() + ' exists | ')
+		#self.response.out.write('openid: ' + openid.claimed_identifier)
+		memcache.add('user', openid[0].user)
 		memcache.delete('return_url')
+		#self.response.out.write('openid[0].user: ' + openid[0].user.nickname)
 		self.redirect(return_url)
 	    else:
 		self.response.out.write(user.nickname() + ' DOES NOT exists')
@@ -96,7 +98,9 @@ def CreateUser(self):
     usr = models.model.User()
     usr.nickname = self.request.get('nickname')
     usr.email = self.request.get('email')
+    usr.gravatar_icon_url = GetGravatar(usr.email)
     usr.put()
+    memcache.add('user', usr)
 
     openid = models.model.OpenID()
     openid.claimed_identifier = self.request.get('federated_identity')
@@ -107,7 +111,8 @@ def CreateUser(self):
 def CreateDevUser(self):
     usr = models.model.User()
     usr.nickname = 'dev'
-    usr.email = 'dev@dev.com'
+    usr.email = 'mysterybbs@gmail.com'
+    usr.gravatar_icon_url = GetGravatar(usr.email)
     usr.put()
 
     openid = models.model.OpenID()
@@ -115,6 +120,16 @@ def CreateDevUser(self):
     openid.friendly_identifier = 'dev.com'
     openid.user = usr
     openid.put()
+    memcache.add('user', usr)
+
+def GetGravatar(email):
+    g = 'http://www.gravatar.com/avatar/%(hash)s?d=identicon&s=32'
+    if email:
+	m = hashlib.md5()
+	m.update(email)
+	return g % {'hash': m.hexdigest()}
+    else:
+	return g % {'hash': '00000000000000000000000000000000'}
 
 
 def dummy():

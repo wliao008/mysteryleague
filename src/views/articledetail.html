@@ -20,17 +20,18 @@ hook to facebook, twitter
 {% for review in item.reviews %}
 	<tr><td colspan="2"><hr></tr>
 	<tr>
-		<td width="40" valign="top"><img src="{{ item.user.gravatar_icon_url }}?s=32"></td>
-		<td valign="top">{{ review.user.nickname }}, <span class="gray">{{ review.created_date|date:"m/d/Y" }}</span><br>{{ review.content_html }}</td>
+		<td width="40" valign="top"><img src="{{ review.user.gravatar_icon_url }}&s=32"></td>
+		<td valign="top"><span class="gray">{{ review.user.nickname }}, {{ review.created_date|date:"m/d/Y" }}</span><br>{{ review.content_html }}</td>
 	</tr>
 {% endfor %}
 	<tr><td colspan="2"><hr></td></tr>
 {% if curr_user %}
 	<form method="post">
 	<tr>
-		<td width="40" valign="top">{{ curr_user.nickname }} </td>
+		<td width="40" valign="top"><img src="{{ user.gravatar_icon_url }}&s=32"></td>
 		<td>
 			<input type="hidden" id="user_key" name="user_key" value="{{ user.key }}" />
+			<span class="gray">{{ user.nickname }}</span><br>
 			<textarea name="content" rows="3" style="width:100%"></textarea>
 		    <br>{{ login_url }}</td>
 	</tr>

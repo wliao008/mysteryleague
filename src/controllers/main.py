@@ -37,6 +37,7 @@ class Login(webapp.RequestHandler):
 
 class Logout(webapp.RequestHandler):
     def get(self):
+	memcache.delete('user')
         url = users.create_logout_url("/")
         self.redirect(url)
 
