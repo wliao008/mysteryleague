@@ -26,7 +26,7 @@ class Login(webapp.RequestHandler):
         #user = users.get_current_user()
         action = self.request.get('action')
         target_url = self.request.get('continue')
-	#memcache.add(key="return_url", value=self.request.uri, time=300)
+	memcache.add(key="return_url", value=os.environ['HTTP_REFERER'], time=300)
         if action and action == "verify":
             f = self.request.get('openid_identifier')
             url = users.create_login_url(target_url, federated_identity=f)

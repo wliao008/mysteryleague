@@ -29,25 +29,36 @@ class NewAccount(webapp.RequestHandler):
 
 class Authenticate(webapp.RequestHandler):
     def get(self):
-        curr_user = users.get_current_user()
-	if curr_user:# and user.federated_identity():
+	server = os.environ.get('SERVER_SOFTWARE', '')
+        user = users.get_current_user()
+	claimed_id = None
+	if server.startswith('Dev'):
+	    claimed_id = 'dev'
+	else:
+	    claimed_id = user.federated_identity()
+
+	if user:# and user.federated_identity():
 	    #check local db
 	    #openid = db.Query(models.model.OpenID).filter('claimed_identifier =', 'test')#user.federated_identity())
-	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', user.federated_identity())
-	    openid = query.fetch(1)
+	    query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', claimed_id)
+	    openid = query.fetch(1)[0]
 	    if openid:
-	        #self.response.out.write('federated_identity: ' + user.federated_identity() + ' | ')
 	        return_url = memcache.get("return_url")
-		memcache.add('user', openid.user, 60)			
-		#self.response.out.write('return_url: ' + data + ' | ')
-		#self.response.out.write(user.nickname() + ' exists')
+	        self.response.out.write('federated_identity: ' + claimed_id + ' | ')
+		self.response.out.write('return_url: ' + return_url  + ' | ')
+		self.response.out.write(user.nickname() + ' exists | ')
+		self.response.out.write('openid: ' + openid.claimed_identifier)
+		memcache.add('user', openid.user, 60)
+		memcache.delete('return_url')
 		self.redirect(return_url)
 	    else:
-		#self.response.out.write(user.nickname() + ' DOES NOT exists')
-                path = os.path.join(os.path.dirname(VIEWS_PATH), 'new_account.html')
-		model={'user': user}
-		self.response.out.write(template.render(path, model))
-		#CreateUser(user)
+		self.response.out.write(user.nickname() + ' DOES NOT exists')
+		if server.startswith('Dev'):
+		    CreateDevUser(user)
+		else:
+                    path = os.path.join(os.path.dirname(VIEWS_PATH), 'new_account.html')
+		    model={'user': user}
+		    self.response.out.write(template.render(path, model))
 	else:
 	    self.response.out.write('Unable to get user obj')
 
@@ -92,6 +103,19 @@ def CreateUser(self):
     openid.friendly_identifier = self.request.get('federated_provider')
     openid.user = usr
     openid.put()
+
+def CreateDevUser(self):
+    usr = models.model.User()
+    usr.nickname = 'dev'
+    usr.email = 'dev@dev.com'
+    usr.put()
+
+    openid = models.model.OpenID()
+    openid.claimed_identifier = 'dev'
+    openid.friendly_identifier = 'dev.com'
+    openid.user = usr
+    openid.put()
+
 
 def dummy():
     print 'dummy'
