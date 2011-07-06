@@ -20,8 +20,18 @@ hook to facebook, twitter
 {% for review in item.reviews %}
 	<tr><td colspan="2"><hr></tr>
 	<tr>
-		<td width="40" valign="top"><img src="{{ review.user.gravatar_icon_url }}&s=32"></td>
-		<td valign="top"><span class="gray">{{ review.user.nickname }}, {{ review.created_date|date:"m/d/Y" }}</span><br>{{ review.content_html }}</td>
+		<td width="40" valign="top">
+			{% if review.user %}
+			<img src="{{ review.user.gravatar_icon_url }}&s=32">
+			{% else %}[deleted]
+			{% endif %}
+		</td>
+		<td valign="top">
+			<span class="gray">
+			{% if review.user %}
+			{{ review.user.nickname }}
+			{% endif %}, {{ review.created_date|date:"m/d/Y" }}</span><br>{{ review.content_html }}
+		</td>
 	</tr>
 {% endfor %}
 	<tr><td colspan="2"><hr></td></tr>
