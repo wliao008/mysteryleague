@@ -51,7 +51,7 @@ class ItemDetail(webapp.RequestHandler):
         review.item = article
 	review.user = user
         review.put()
-        self.redirect("/detail/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
+        self.redirect("/item/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
 
 class ItemEdit(webapp.RequestHandler):
     def get(self, item_type, key=None):
@@ -122,5 +122,5 @@ class ItemReview(webapp.RequestHandler):
     	usr.put()
     	article = model.Article(item_type=1,title=title, summary=summary, content_html=content, user=usr)
 	article.put()
-        self.redirect('/detail/' + item_type + '-' + key)
+        self.redirect('/item/' + item_type + '-' + key)
 
