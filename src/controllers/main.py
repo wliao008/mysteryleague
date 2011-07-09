@@ -18,7 +18,7 @@ class MainPage(webapp.RequestHandler):
         offset = PAGE_SIZE * int(pagenum)
         count = items.count()
         links = paging.link(pagenum, count/PAGE_SIZE, 6, 2, 'prev', 'next', dummy)
-        model = {'ver': os.environ['CURRENT_VERSION_ID'], 'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
+        model = {'ver': os.environ['CURRENT_VERSION_ID'], "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
         self.response.out.write(template.render(path, model))
 
 class Login(webapp.RequestHandler):
@@ -26,7 +26,12 @@ class Login(webapp.RequestHandler):
         #user = users.get_current_user()
         action = self.request.get('action')
         target_url = self.request.get('continue')
-	memcache.add(key="return_url", value=os.environ['HTTP_REFERER'], time=300)
+	referer = None
+	try:
+	    referer = os.environ['HTTP_REFERER']
+	except:
+	    referer = target_url
+	memcache.add(key="return_url", value=referer, time=300)
         if action and action == "verify":
             f = self.request.get('openid_identifier')
             url = users.create_login_url(target_url, federated_identity=f)

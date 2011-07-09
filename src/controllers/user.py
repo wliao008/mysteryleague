@@ -83,7 +83,7 @@ class UserIndex(webapp.RequestHandler):
         offset = PAGE_SIZE * int(pagenum)
         count = items.count()
         links = paging.link(pagenum, count/PAGE_SIZE, 6, 2, 'prev', 'next', dummy)
-        model = {'name': 'man', 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
+        model = {'user': user, 'path': path, "count": count, "page_size": PAGE_SIZE, 'items': items.fetch(PAGE_SIZE, offset), 'links': links}
 	self.response.out.write(template.render(path, model))
 
 	'''

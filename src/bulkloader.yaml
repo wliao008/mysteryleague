@@ -63,6 +63,10 @@ transformers:
       external_name: created_date
       import_transform: transform.import_date_time('%Y-%m-%d %H:%M:%S.%f')
       export_transform: transform.export_date_time('%Y-%m-%d %H:%M:%S.%f')
+ 
+    - property: is_admin
+      external_name: is_admin
+      import_transform: bool
 
 - kind: Item
   connector: csv 

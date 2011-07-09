@@ -9,6 +9,7 @@ class User(db.Model):
     nickname = db.StringProperty()
     gravatar_icon_url = db.LinkProperty()
     created_date = db.DateTimeProperty(auto_now_add=True) 
+    is_admin = db.BooleanProperty(default=False)
 
 class OpenID(db.Model):
     claimed_identifier = db.StringProperty()

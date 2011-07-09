@@ -4,6 +4,8 @@ from google.appengine.api import users, memcache
 import os
 import cgi
 import models.model
+import html2text
+import markdown
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
@@ -52,7 +54,7 @@ class ItemDetail(webapp.RequestHandler):
         self.redirect("/detail/%(item_type)s-%(key)s" % {'item_type': item_type, 'key': key})
 
 class ItemEdit(webapp.RequestHandler):
-    def get(self, item_type, key):
+    def get(self, item_type, key=None):
 	item_template = ''
 	item = None
 	if item_type == '1':
@@ -62,21 +64,45 @@ class ItemEdit(webapp.RequestHandler):
 	elif item_type == '3':
 		item_template = 'persondetailedit.html'
 	try:
-	    item = db.get(key)
-            path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
-	    model = {'item': item}
-	    self.response.out.write(template.render(path, model))
+	    if key:
+	        item = db.get(key)
+	        if not item.content_wmd:
+	            item.content_wmd = html2text.html2text(item.content_html)
+	    else:
+		#TODO: make sure user is logged in first
+		curr_user = users.get_current_user()
+		if not curr_user:
+		    login_url = "/login?continue=" + self.request.uri
+		    self.redirect(login_url)
+		else:		
+    		    title = "new"
+    		    summary = ""
+    		    usr = memcache.get('user')
+		    item = models.model.Article(item_type=int(item_type),title=title, summary=summary, user=usr)
+		    item.content_wmd = '**hi**'
+                path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
+	        model = {'item': item}
+	        self.response.out.write(template.render(path, model))
 	except db.Error:
 	    self.error(500)
 	    self.redirect('/notfound')
 
-    def post(self, item_type, key):
+    def post(self, item_type, key=None):
+        title = self.request.get('title')
 	content_wmd = self.request.get('content_wmd')
-	self.response.out.write(content_wmd)
-	#item = db.get(key)
-	#item.content_html = content_html
-	#item.put()	
-	#self.redirect('/detail/%(item_type)s-%(key)s' % {'item_type': item_type, 'key': key})
+	if key:
+	    item = db.get(key)	
+	else:
+    	    summary = ""
+    	    usr = memcache.get('user')
+	    item = models.model.Article(item_type=int(item_type),title=title, summary=summary, user=usr)
+
+	item.title = title
+	item.content_wmd = content_wmd
+	item.content_html = markdown.markdown(content_wmd, output_format='html')
+	#self.response.out.write(item.content_html)
+	item.put()	
+	self.redirect('/')
 	    
 	
 
