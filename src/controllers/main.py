@@ -26,12 +26,13 @@ class Login(webapp.RequestHandler):
         #user = users.get_current_user()
         action = self.request.get('action')
         target_url = self.request.get('continue')
-	referer = None
-	try:
-	    referer = os.environ['HTTP_REFERER']
-	except:
-	    referer = target_url
-	memcache.add(key="return_url", value=referer, time=300)
+        referer = None
+        try:
+            referer = os.environ['HTTP_REFERER']
+        except:
+            referer = target_url
+
+        memcache.add(key="return_url", value=referer, time=300)
         if action and action == "verify":
             f = self.request.get('openid_identifier')
             url = users.create_login_url(target_url, federated_identity=f)
@@ -42,15 +43,15 @@ class Login(webapp.RequestHandler):
 
 class Logout(webapp.RequestHandler):
     def get(self):
-	memcache.delete('user')
+        memcache.delete('user')
         url = users.create_logout_url("/")
         self.redirect(url)
 
 class Error(webapp.RequestHandler):
     def get(self):
-	path = os.path.join(os.path.dirname(VIEWS_PATH), 'default_error.html')
-	model = {'error_msg': 'error'}
-	self.response.out.write(template.render(path, model))
+        path = os.path.join(os.path.dirname(VIEWS_PATH), 'default_error.html')
+        model = {'error_msg': 'error'}
+        self.response.out.write(template.render(path, model))
 
 def dummy():
     print 'dummy'

@@ -123,11 +123,12 @@ def json_to_list(transformer):
   
 def comma_str_to_list(transformer):
     def comma_str_to_list_lambda(value):
-            output = []
-            for i in value.split(','):
-                output.append(transformer(i.strip().capitalize()))
-            return output
+        output = []
+        for i in value.split(','):
+            output.append(transformer(i.strip().capitalize()))
+        return output
     return comma_str_to_list_lambda
+
 
 def class_to_tuple(value):
     '''
