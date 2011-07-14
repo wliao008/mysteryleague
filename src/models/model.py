@@ -4,6 +4,10 @@ from google.appengine.ext.db import polymodel
 class Status(db.Model):
     status_name = db.StringProperty(required=True)
 
+class Tag(db.Model):
+    name = db.StringProperty(required=True)
+    count = db.IntegerProperty(default=1)
+
 class User(db.Model):
     email = db.StringProperty()
     nickname = db.StringProperty()
@@ -32,6 +36,7 @@ class Item(polymodel.PolyModel):
     icon_url = db.StringProperty()
     user = db.ReferenceProperty(User)
     status = db.ReferenceProperty(Status)
+    tags = db.ListProperty(db.Key)
 
 class Article(Item):
     original_author = db.StringProperty()
@@ -58,8 +63,3 @@ class Review(db.Model):
     rating = db.RatingProperty()
     up_vote = db.IntegerProperty(default=0)
     down_vote = db.IntegerProperty(default=0)
-
-class Tag(db.Model):
-    name = db.StringProperty(required=True)
-    count = db.IntegerProperty(default=1)
-    item = db.ReferenceProperty(Item, collection_name='tags')

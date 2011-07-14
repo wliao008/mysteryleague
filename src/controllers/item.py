@@ -35,7 +35,9 @@ class ItemDetail(webapp.RequestHandler):
                 login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
 
             user = memcache.get('user')
-            model = {'book': book, 'item': item, 'curr_user': curr_user, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
+            tags = db.get(item.tags)
+            tagcount = len(tags)
+            model = {'book': book, 'item': item, 'tags': tags, 'tagcount': tagcount, 'curr_user': curr_user, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
             self.response.out.write(template.render(path, model))
         except db.Error:
             self.error(500)

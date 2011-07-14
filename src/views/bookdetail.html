@@ -11,6 +11,11 @@ ISBN: {{ item.isbn }}<br>
 Page: {{ item.page_count }}<br>
 <br>
 {{ item.summary }}
+<br><br>
+<b>Tags ({{ tagcount }})</b><br>
+{% for tag in tags %}
+<a class="gray" href="#">{{ tag.name }} ({{ tag.count }})</a>  
+{% endfor %}
 <hr>
 hook to facebook, twitter
 <hr>

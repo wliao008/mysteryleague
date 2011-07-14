@@ -133,3 +133,7 @@ transformers:
       external_name: page_count
       import_transform: transform.none_if_empty(int)
 
+    - property: tags
+      external_name: tags
+      import_transform: bulk_helper.create_list_of_foreign_key('Tag')
+

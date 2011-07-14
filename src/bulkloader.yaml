@@ -58,10 +58,6 @@ transformers:
       external_name: count
       import_transform: int
 
-    - property: item
-      external_name: item
-      import_transform: transform.create_foreign_key('Item')
-
 
 - kind: User
   connector: csv 

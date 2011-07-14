@@ -130,6 +130,17 @@ def comma_str_to_list(transformer):
     return comma_str_to_list_lambda
 
 
+def create_list_of_foreign_key(kind, key_is_id=False):
+    def generate_list_of_foreign_key_lambda(value):
+        v = [x for x in value.split(', ') if x != '']
+        ret = []
+        for x in v:
+            key = datastore.Key.from_path(kind, x)
+            if key:
+                ret.append(key)
+        return ret
+    return generate_list_of_foreign_key_lambda
+
 def class_to_tuple(value):
     '''
     returns a tuple of json string of the list
