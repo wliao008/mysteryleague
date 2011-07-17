@@ -7,7 +7,7 @@ register = webapp.template.create_template_register()
 def curr_user():
     openid = user_helper.get_current_openid()
     if openid:
-        return '<a href="/user/setting">' + (str(openid.claimed_identifier)) + '</a> [<a href="/logout">logout</a>]'
+        return '<a href="/user/setting">' + (str(openid.user.nickname)) + '</a> [<a href="/logout">logout</a>]'
     else:
         return '<a href="/login">login</a>'
 

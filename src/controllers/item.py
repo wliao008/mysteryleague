@@ -70,8 +70,8 @@ class ItemEdit(webapp.RequestHandler):
         try:
             if key:
                 item = db.get(key)
-            if not item.content_wmd:
-                item.content_wmd = html2text.html2text(item.content_html)
+                if not item.content_wmd:
+                    item.content_wmd = html2text.html2text(item.content_html)
             else:
                 #TODO: make sure user is logged in first
                 curr_user = users.get_current_user()
