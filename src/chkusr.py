@@ -1,27 +1,15 @@
-from google.appengine.ext import webapp, db
-from google.appengine.api import users
+from google.appengine.ext import webapp
 import os
+import helper.user_helper as user_helper
 
 register = webapp.template.create_template_register()
 
 def curr_user():
-    server = os.environ.get('SERVER_SOFTWARE', '')
-    user = users.get_current_user()
-    if user:
-	claimed_id = None
-	if server.startswith('Dev'):
-	    claimed_id = 'dev'
-	else:
-	    claimed_id = user.federated_identity()
-
-	query = db.GqlQuery('SELECT * FROM OpenID WHERE claimed_identifier = :1', claimed_id)
-	openid = query.fetch(1)
-	if openid:
-    	    return '<a href="/user/setting">' + user.nickname() + '</a> [<a href="/logout">logout</a>]'
-	else:
-	    return '<a href="/login">login</a>'
+    openid = user_helper.get_current_openid()
+    if openid:
+        return '<a href="/user/setting">' + (str(openid.claimed_identifier)) + '</a> [<a href="/logout">logout</a>]'
     else:
-	return '<a href="/login">login</a>'
+        return '<a href="/login">login</a>'
 
 def ver():
     return os.environ['CURRENT_VERSION_ID']

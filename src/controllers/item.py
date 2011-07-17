@@ -6,6 +6,7 @@ import cgi
 import models.model
 import html2text
 import markdown
+import helper.user_helper as user_helper
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
@@ -26,10 +27,11 @@ class ItemDetail(webapp.RequestHandler):
             path = os.path.join(os.path.dirname(VIEWS_PATH), item_template)
             item.hits += 1
             item.put()
-            curr_user = users.get_current_user()
+            #curr_user = users.get_current_user()
+            openid = user_helper.get_current_openid()
             login_url = ""
             login_msg = ""
-            if not curr_user:
+            if not openid:
                 #login_url = users.create_login_url(self.request.uri)
                 login_url = "/login?continue=" + self.request.uri
                 login_msg = "Please <a href=" +  login_url + ">login</a> to leave comment ;)"
@@ -37,7 +39,7 @@ class ItemDetail(webapp.RequestHandler):
             user = memcache.get('user')
             tags = db.get(item.tags)
             tagcount = len(tags)
-            model = {'book': book, 'item': item, 'tags': tags, 'tagcount': tagcount, 'curr_user': curr_user, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
+            model = {'book': book, 'item': item, 'tags': tags, 'tagcount': tagcount, 'curr_user': openid, 'user': user, 'login_url': login_url, 'login_msg': login_msg}
             self.response.out.write(template.render(path, model))
         except db.Error:
             self.error(500)
