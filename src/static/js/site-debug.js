@@ -1,14 +1,15 @@
 $(ready);
 function ready(){
     $("#mytags").tagit({
-	allowSpaces: true
+    	tagSource: "/testajax?term=推理",
+		allowSpaces: true
     });
     $("#wmd-preview").hide();
     $('#lnkPreview').click(function(){
-	toggle_preview();
+		toggle_preview();
     });
     $("#test").click(function(){
-	test();
+		test();
     });
 }
 
@@ -20,7 +21,7 @@ function test(){
     var retval = null;
     $.ajax({
         type: "GET",
-        url: "/testajax",
+        url: "/testajax?term=推理",
         dataType: "json",
         data: null,
         success: function (data, status) {

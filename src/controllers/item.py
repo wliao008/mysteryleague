@@ -7,6 +7,7 @@ import models.model
 import html2text
 import markdown
 import helper.user_helper as user_helper
+from django.utils import simplejson
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
@@ -126,3 +127,7 @@ class ItemReview(webapp.RequestHandler):
         article.put()
         self.redirect('/item/' + item_type + '-' + key)
 
+class SearchTags(webapp.RequestHandler):
+    def get(self, term):
+        model = {'msg': 'hello ajax'}
+        self.response.out.write(simplejson.dumps(model))
