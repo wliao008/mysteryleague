@@ -11,6 +11,7 @@ from django.utils import simplejson
 
 VIEWS_PATH = os.path.join(os.path.dirname(__file__), '../views/')
 
+
 class ItemDetail(webapp.RequestHandler):
     def get(self, item_type, key):
         item_template = ''

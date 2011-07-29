@@ -12,9 +12,9 @@ urls = [
 	(r'/user/register', Register),
 	(r'/logout', Logout),
 	#item
-	(r'/item/(\d)-(\w+)', ItemDetail),
-	(r'/item/review/(\d)-(\w+)', ItemReview),
-	(r'/item/edit/(\d)-(\w+)', ItemEdit),
+	(r'/item/(\d)-(.*)', ItemDetail),
+	(r'/item/review/(\d)-(.*)', ItemReview),
+	(r'/item/edit/(\d)-(.*)', ItemEdit),
 	(r'/item/edit/(\d)', ItemEdit),
 	(r'/item/review/new', ItemEdit),
 	(r'/user/setting', Setting),
@@ -23,8 +23,8 @@ urls = [
 	(r'/test', Test),
 	(r'/testajax', Testajax),
 	(r'/new_account', NewAccount),
-	(r'/notfound', Error),
-	(r'/.*', Error),
+	#(r'/notfound', Error),
+	#(r'/.*', Error),
 	# more url patterns
 ]
 

@@ -6,8 +6,8 @@ api_version: 1
 builtins:
 - datastore_admin: on
 
-error_handlers:
-- file: default_error.html
+#error_handlers:
+#- file: default_error.html
 
 handlers:
 #for uploading and download data
