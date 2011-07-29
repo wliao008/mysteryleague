@@ -4,3 +4,4 @@ src/pics
 src/.pics
 src/controllers/paging.py
 src/html2text.py
+src/static/js/tag-it.js

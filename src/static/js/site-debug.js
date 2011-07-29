@@ -1,8 +1,10 @@
 $(ready);
 function ready(){
     $("#mytags").tagit({
-    	tagSource: "/testajax?term=推理",
-		allowSpaces: true
+		tagSource: "/testajax",
+		allowSpaces: true,
+		itemName: 'tags',
+		fieldName: 'term'
     });
     $("#wmd-preview").hide();
     $('#lnkPreview').click(function(){
@@ -10,6 +12,11 @@ function ready(){
     });
     $("#test").click(function(){
 		test();
+    });
+    $("#hrefTest").click(function(){
+	var tags = $("input[name='tags[term][]']");
+	alert(tags);
+	//alert('hey');
     });
 }
 
@@ -21,9 +28,9 @@ function test(){
     var retval = null;
     $.ajax({
         type: "GET",
-        url: "/testajax?term=推理",
+        url: "/testajax",
         dataType: "json",
-        data: null,
+        data: {term: $(".ui-widget-content").val()},
         success: function (data, status) {
 	    /*
             $("#result").html("ok");*/
