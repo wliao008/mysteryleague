@@ -1,7 +1,7 @@
 ##Summary##
 
 A website for detective/mystery fiction fans.
-Site hosted with Google Appengine at: http://tuiliclub.appspot.com
+Site hosted with Google Appengine.
 
 ##Features##
 
